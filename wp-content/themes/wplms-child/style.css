@@ -1,0 +1,313 @@
+/* 
+Theme Name:		 WPLMS Child
+Theme URI:		 http://childtheme-generator.com/
+Description:	 WPLMS Child is a child theme of WPLMS, created by ChildTheme-Generator.com
+Author:			 Foyez
+Author URI:		 http://childtheme-generator.com/
+Template:		 wplms
+Version:		 1.0.0
+Text Domain:	 wplms-child
+*/
+/* UKHF Certificate */
+#cert-container-page1,
+#cert-container-merit-page {
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+#cert-container-page1 .certificate-order-card {
+    margin: 20px 0;
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px solid #D7D7D7;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.certificate-order-card:nth-of-type(4) .progress-container {
+    display: none;
+}
+
+.certificate-order-card .cert-type-title h1 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: #4B4B4B;
+    text-transform: capitalize;
+}
+
+.certificate-order-card .cert-type-title h4 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #8B8B8B;
+    text-transform: capitalize;
+}
+
+
+.certificate-order-card .cert-progress {
+
+    padding: 0;
+    max-width: 232px;
+    height: 14px;
+    overflow: hidden;
+    background: #F1F1F1;
+    border-radius: 50px;
+}
+
+.certificate-order-card .cert-bar {
+    position: relative;
+    float: left;
+    min-width: 1%;
+    height: 100%;
+    background: #00C7B2;
+    border-radius: 50px;
+}
+
+.certificate-order-card .progress-container {
+    padding: 0 15px;
+}
+
+.certificate-order-card .progress-container h4 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #8B8B8B;
+    text-transform: capitalize;
+}
+
+.certificate-order-card .progress-container h3 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+
+}
+
+.certificate-order-card a.redirect-url-btn,
+.certificate-merit-card a.redirect-url-btn {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    min-width: 208px;
+    line-height: 17px;
+    text-transform: capitalize;
+    color: #3B294B;
+    background: #D4FAF6;
+    border-radius: 4px;
+    padding: 10px 20px;
+    transition: .3s;
+    text-align: center;
+}
+
+.certificate-order-card a.redirect-url-btn:hover {
+    background: #00C7B2;
+    color: #fff !important;
+}
+
+h1.select-course-title {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 48px;
+    text-transform: capitalize;
+    color: #4B4B4B;
+
+}
+
+#cert-container-merit-page .certificate-merit-card {
+    margin: 20px 0;
+    padding: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D7D7D7;
+    border-radius: 10px;
+    /* display: grid;
+    grid-template-columns: .2fr 1fr .2fr .2fr; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.certificate-merit-card h1.certificate-course-title {
+    max-width: 385px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 31px;
+    text-transform: capitalize;
+    color: #4B4B4B;
+}
+
+
+.certificate-status {
+    max-width: 102px;
+    /* background: #009834; */
+    border-radius: 40px;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 19px;
+    text-transform: capitalize;
+    color: #FFFFFF;
+}
+.foy-claimed{
+    background: #009834;
+}
+.foy-pending{
+    background: #ddd600;
+}
+
+.certificate-status-pending {
+    max-width: 102px;
+    background: #FDC748;
+    border-radius: 40px;
+    padding: 10px 20px;
+    text-align: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 19px;
+    text-transform: capitalize;
+    color: #000000;
+}
+
+#course_for_certificate_chosen {
+    /* margin-bottom: 100px; */
+}
+
+.chosen-container-single .chosen-single {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(131, 131, 131, 0.4) !important;
+    border-radius: 5px !important;
+    max-width: 592px;
+    max-height: 56px;
+}
+p.foy-type-heading {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2ad346;
+}
+.foy-certificate-top-section{
+    margin-bottom: 50px;
+}
+
+@media only screen and (max-width: 900px) and (min-width: 768px) {
+
+    #cert-container-page1 .certificate-order-card {
+        display: grid;
+        grid-template-columns: .3fr 1fr 1fr .6fr;
+    }
+
+
+    .certificate-order-card:nth-of-type(4) .progress-container {
+        display: block;
+    }
+
+    .certificate-order-card:nth-of-type(4) {
+        grid-template-columns: .3fr 1fr .1fr .6fr !important;
+    }
+
+    .certificate-order-card .progress-container h4 {
+        font-size: 12px;
+    }
+
+
+    .certificate-order-card .cert-type-title h1 {
+        font-size: 14px;
+    }
+
+
+
+    .certificate-order-card a.redirect-url-btn {
+        font-size: 12px;
+        padding: 10px 5px;
+        text-align: center;
+    }
+
+    .certificate-order-card .progress-container h3 {
+        font-size: 12px;
+    }
+
+    .certificate-merit-card a.redirect-url-btn {
+        min-width: 130px;
+    }
+
+    .certificate-merit-card h1.certificate-course-title {
+        max-width: 230px;
+        font-size: 22px;
+        line-height: 28px;
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+
+    #cert-container-page1,
+    #cert-container-merit-page {
+        padding: 0 20px;
+    }
+
+    .certificate-order-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .certificate-order-card .progress-container h4 {
+        text-align: center;
+        font-size: 14px;
+    }
+
+
+    .certificate-order-card .cert-type-title h1 {
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .certificate-order-card .progress-container h3 {
+        text-align: center;
+    }
+
+    .certificate-order-card a.redirect-url-btn,
+    .certificate-merit-card a.redirect-url-btn {
+        margin: 10px 0;
+        min-width: fit-content;
+    }
+
+    #cert-container-merit-page .certificate-merit-card {
+        flex-direction: column;
+    }
+
+    #cert-container-merit-page .certificate-merit-card img {
+        width: 100%;
+    }
+
+    .certificate-merit-card h1.certificate-course-title {
+        font-size: 18px;
+        line-height: 25px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,190 @@
+2023-03-09T13:34:35+00:00 CRITICAL Uncaught Error: Call to undefined function dd() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:13
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 13
+
+2023-03-09T13:34:40+00:00 CRITICAL Uncaught Error: Call to undefined function dd() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:13
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 13
+
+2023-03-09T13:36:38+00:00 CRITICAL Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in C:\xampp\htdocs\MyProject\wp-content\plugins\vibe-course-module\includes\bp-course-actions.php:1431
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(310): BP_Course_Action->bp_course_enable_access(533)
+#1 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters(NULL, Array)
+#2 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(363): do_action('woocommerce_ord...', 533, Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#4 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(221): WC_Order->status_transition()
+#5 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(119): WC_Order->save()
+#6 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(961): WC_Order->payment_complete()
+#7 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(1143): WC_Checkout->process_order_without_payment(533)
+#8 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-ajax.php(464): WC_Checkout->process_checkout()
+#9 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(308): WC_AJAX::checkout('')
+#10 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#11 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#12 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-ajax.php(89): do_action('wc_ajax_checkou...')
+#13 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(308): WC_AJAX::do_wc_ajax('')
+#14 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters(false, Array)
+#15 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#16 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(13): do_action('template_redire...')
+#17 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#18 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#19 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\plugins\vibe-course-module\includes\bp-course-actions.php on line 1431
+
+2023-03-09T13:37:22+00:00 CRITICAL Uncaught Error: Call to undefined function dd() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:17
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 17
+
+2023-03-09T14:08:32+00:00 CRITICAL Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in C:\xampp\htdocs\MyProject\wp-content\plugins\vibe-course-module\includes\bp-course-actions.php:1431
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(310): BP_Course_Action->bp_course_enable_access(536)
+#1 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters(NULL, Array)
+#2 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(363): do_action('woocommerce_ord...', 536, Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#4 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(221): WC_Order->status_transition()
+#5 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(119): WC_Order->save()
+#6 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(961): WC_Order->payment_complete()
+#7 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(1143): WC_Checkout->process_order_without_payment(536)
+#8 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-ajax.php(464): WC_Checkout->process_checkout()
+#9 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(308): WC_AJAX::checkout('')
+#10 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#11 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#12 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-ajax.php(89): do_action('wc_ajax_checkou...')
+#13 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(308): WC_AJAX::do_wc_ajax('')
+#14 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters(false, Array)
+#15 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#16 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(13): do_action('template_redire...')
+#17 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#18 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#19 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\plugins\vibe-course-module\includes\bp-course-actions.php on line 1431
+
+2023-03-09T14:10:52+00:00 CRITICAL Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in C:\xampp\htdocs\MyProject\wp-content\plugins\vibe-course-module\includes\bp-course-actions.php:1431
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(310): BP_Course_Action->bp_course_enable_access(537)
+#1 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters(NULL, Array)
+#2 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(363): do_action('woocommerce_ord...', 537, Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#4 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(221): WC_Order->status_transition()
+#5 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-order.php(119): WC_Order->save()
+#6 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(961): WC_Order->payment_complete()
+#7 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(1143): WC_Checkout->process_order_without_payment(537)
+#8 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-ajax.php(464): WC_Checkout->process_checkout()
+#9 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(308): WC_AJAX::checkout('')
+#10 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#11 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#12 C:\xampp\htdocs\MyProject\wp-content\plugins\woocommerce\includes\class-wc-ajax.php(89): do_action('wc_ajax_checkou...')
+#13 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(308): WC_AJAX::do_wc_ajax('')
+#14 C:\xampp\htdocs\MyProject\wp-includes\class-wp-hook.php(332): WP_Hook->apply_filters(false, Array)
+#15 C:\xampp\htdocs\MyProject\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#16 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(13): do_action('template_redire...')
+#17 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#18 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#19 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\plugins\vibe-course-module\includes\bp-course-actions.php on line 1431
+
+2023-03-09T14:11:19+00:00 CRITICAL Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, string given in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:22
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php(22): in_array('529', '')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 22
+
+2023-03-09T14:43:59+00:00 CRITICAL Uncaught Error: Failed opening required 'C:\xampp\htdocs\MyProject/wp-content/themes/wplms-child/classes/OrderCertificate.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:3
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 3
+
+2023-03-09T14:48:43+00:00 CRITICAL Uncaught Error: Call to a member function have_posts() on array in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:6
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 6
+
+2023-03-09T14:48:52+00:00 CRITICAL Uncaught Error: Call to a member function have_posts() on int in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:6
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 6
+
+2023-03-09T14:48:57+00:00 CRITICAL Uncaught Error: Call to a member function have_posts() on int in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:6
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 6
+
+2023-03-09T14:49:01+00:00 CRITICAL Uncaught Error: Call to a member function have_posts() on int in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:6
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 6
+
+2023-03-09T14:49:17+00:00 CRITICAL Uncaught Error: Call to a member function have_posts() on string in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:6
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 6
+
+2023-03-09T15:04:55+00:00 CRITICAL Uncaught Error: Call to a member function have_posts() on null in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:14
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 14
+
+2023-03-09T15:39:59+00:00 CRITICAL Uncaught TypeError: array_intersect(): Argument #1 ($array) must be of type array, null given in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\OrderCertificate.php:18
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\OrderCertificate.php(18): array_intersect(NULL, Array)
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php(6): OrderCertificate->getCourses()
+#2 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\OrderCertificate.php on line 18
+
+2023-03-09T15:40:05+00:00 CRITICAL Uncaught TypeError: array_intersect(): Argument #1 ($array) must be of type array, null given in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\OrderCertificate.php:18
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\OrderCertificate.php(18): array_intersect(NULL, Array)
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php(6): OrderCertificate->getCourses()
+#2 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\OrderCertificate.php on line 18
+
+2023-03-09T15:56:01+00:00 CRITICAL Uncaught TypeError: array_intersect(): Argument #2 must be of type array, null given in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php:15
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php(15): array_intersect(Array, NULL)
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\customPage.php on line 15
+
