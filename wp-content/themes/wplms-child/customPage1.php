@@ -5,7 +5,7 @@ get_header(vibe_get_header());
 <?php
     require_once get_stylesheet_directory() . '/classes/OrderCertificate.php';
     $order_obj = new OrderCertificate();
-    // get user's courses that has an associated certificate
+    // get user's course count(claimed and purchased and total courses)
     $courseCount = $order_obj->courseCount();
 ?>
 <section>
@@ -24,7 +24,7 @@ get_header(vibe_get_header());
                     </div>
                 </div>
             </div>
-            <a href="<?php echo home_url(); ?>/custom-page-2/?type=enrolled" class="redirect-url-btn">claim your certificate</a>
+            <a href="<?php echo home_url(); ?>/custom-page-3" class="redirect-url-btn">claim your certificate</a>
         </div>
 
         <div class="certificate-order-card">
@@ -40,7 +40,7 @@ get_header(vibe_get_header());
                     </div>
                 </div>
             </div>
-            <a href="<?php echo home_url(); ?>/custom-page-2/?type=all" class="redirect-url-btn">claim your certificate</a>
+            <a href="<?php echo home_url(); ?>/custom-page-2" class="redirect-url-btn">claim your certificate</a>
         </div>
 
         <div class="certificate-order-card">

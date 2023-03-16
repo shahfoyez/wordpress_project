@@ -57,8 +57,8 @@ class OrderCertificate {
             $claimed_cources = new WP_Query( $claimed_merged_args );
             $pending_cources = new WP_Query( $pending_merged_args );
             $data = array(
-                'claimed' => $claimed_cources,
-                'pending' => $pending_cources
+                'claimed' => $claimed_cources->posts,
+                'pending' => $pending_cources->posts
             ); 
         }else{
             $data = [];
@@ -90,10 +90,7 @@ class OrderCertificate {
             ),
         );
         $the_query = new WP_Query($args);
-        $data = array(
-            'courses' => $the_query,
-        );
-        return $data;
+        return $the_query->posts;
     }
     public function courseCount(){
 
@@ -105,7 +102,7 @@ class OrderCertificate {
             $distinct_course_ids = array_unique($course_ids);
         
             // Get the common elements, meaning certificate claimed
-            $claimed_cources = array_intersect( $user_certificates, $distinct_course_ids);
+            $claimed_cources = count(array_intersect( $user_certificates, $distinct_course_ids));
             // get courses that has certificate
             $taken = array(  
                 'post_type' => 'course',
@@ -126,8 +123,9 @@ class OrderCertificate {
                     // ),
                 ),
                 'post__in' =>  $distinct_course_ids,
+                'fields' => 'ids'
             );
-            $taken_cources = new WP_Query( $taken );  
+            $taken_cources = count( get_posts( $taken ) );
         }
 
         // All courses
@@ -135,8 +133,6 @@ class OrderCertificate {
             'post_type' => 'course',
             'post_status' => 'publish',
             'posts_per_page' => -1, 
-            'orderby' => 'date', 
-            'order' => 'DESC', 
             'meta_query' => array(
                 // array(
                 //     'key' => 'vibe_product',
@@ -149,13 +145,15 @@ class OrderCertificate {
                     'value' => ''
                 )
             ),
+            'fields' => 'ids'
         );
-        $all_courses = new WP_Query($allCourses);
+        
+        $all_courses = count( get_posts( $allCourses ) );
         // dd($all_courses->post_count);
         $data = array(
-            'all' => $all_courses->post_count,
-            'taken' => $taken_cources->post_count,
-            'claimed' => $claimed_cources ? count( $claimed_cources ) : 0,
+            'all' => $all_courses,
+            'taken' =>  $taken_cources,
+            'claimed' => $claimed_cources,
         );
         return $data; 
     }

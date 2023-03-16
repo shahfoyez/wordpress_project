@@ -2,107 +2,167 @@
 /* Template Name: Custom Page 2*/
 get_header(vibe_get_header());
 ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.proto.min.js" integrity="sha512-jVHjpoNvP6ZKjpsZxTFVEDexeLNdWtBLVcbc7y3fNPLHnldVylGNRFYOc7uc+pfS+8W6Vo2DDdCHdDG/Uv460Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" integrity="sha512-yVvxUQV0QESBt1SyZbNJMAwyKvFTLMyXSyBHDO4BG5t7k/Lw34tyqlSDlKIrIENIzCl+RVUNjmCPG+V/GMesRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <?php
     require_once get_stylesheet_directory() . '/classes/OrderCertificate.php';
     $order_obj = new OrderCertificate();
     // get user's courses that has an associated certificate
-    $allType = $order_obj->getCourses();
+    $courseCount = $order_obj->courseCount();
+    // get all courses
+    $selectCourses = $order_obj->getAllCourses();
+ 
 ?>
 <?php
-    if(isset($_GET['type'])){
-        $type = $_GET['type'];
-    }
-    if( $type == 'enrolled'){
-        $selectCourses =  $allType;
-    }else{
-        $selectCourses = $order_obj->getAllCourses();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['foy-link-ap'])) {
+            // Get the course link
+            $course_link = $_POST['course-link'];
+
+            // Extract the path from the URL
+            $path = parse_url($course_link, PHP_URL_PATH);
+
+            // Get the last segment of the path, which should be the course slug
+            $segments = explode('/', rtrim($path, '/'));
+            $course_slug = end($segments);
+
+            // Query the database to find the course ID
+            global $wpdb;
+            $course_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_type = 'course' AND post_name = '$course_slug'");
+            $category = has_term( 'qls', 'course-cat', $course_id );
+            
+        }
     }
 ?>
 <section>
     <?php do_action('wplms_before_title'); ?>
-
-    <div class="container" id="cert-container-merit-page">
+    <div class="container" id="cert-container-page1">
+        
         <div class="foy-certificate-top-section">
-            <h1 class="select-course-title">select your course for certificate</h1>
-            <select id="course-for-certificate">
-                <option selected>Search for Your Desired Courses</option>
-                <?php
-                    if ($selectCourses) {
-                        foreach($selectCourses as $selectCourse){
-                            if ($selectCourse->posts) {
-                                foreach ($selectCourse->posts as $course) {?>
-                                    <option value=" "><?php echo $course->post_title; ?></option>
-                                <?php }
-                            }
-                        } 
-                    } 
-                ?>
-            </select>
-            <button type="submit" disabled>Submit</button>
-        </div>
-         
-        <div class="foy-certificate-bottom-section">
-        <?php
-            if ($allType) {
-                foreach ($allType as $key => $courseType) { ?>
-                <div class="foy-heading">
-                    <p class="foy-type-heading"><?php echo ucfirst($key)?></p>
-                </div>
+            <h1 class="select-course-title">Pre-order your certificate</h1>
+            <form id="foy-select" action="https://uk.hfonline.org/new-certificate-2023-test/" method="GET">
+                <select name="course-id" id="course-for-certificate">
+                    <!-- <option selected>Search for Your Desired Courses</option> -->
                     <?php
-                    if (count($courseType->posts) > 0) {
-                        foreach ($courseType->posts as $course) {
-                            // dd( $course);
-                            $category = has_term( 'qls', 'course-cat', $course->ID );
-                            $cats = get_the_terms( 77, 'course-cat' );
+                        if (count($selectCourses) > 0) {
+                            foreach($selectCourses as $course){ 
+                                $category = has_term( 'qls', 'course-cat', $course->ID );
+                                ?>
+                                
+                                <option 
+                                    value="<?php echo $course->ID ?>" 
+                                    data-content="<?php echo $category == true ? 'qls' : ''?>"
+                                >
+                                <?php echo $course->post_title; ?>
+                                </option>
+                            <?php }
+                        } 
+                    ?>
+                </select>
+                <input name="course-type" class="foy-input" type="text" hidden>
+                <button id="proceed-button" name="proceed-button" type="submit">Proceed</button>
+            </form>
+             
+        </div>
 
-                            // dd( $category );
-                            $title = $course->post_title . "<br>";
-                        ?>
-                            <div class="certificate-merit-card">
-                                <img src="<?php echo get_theme_file_uri(); ?>/assets/img/certificate.webp" alt="">
-                                <h1 class="certificate-course-title"><?php echo $title ?></h1>
-                                <div class="certificate-status <?php echo $key == 'claimed' ? 'foy-claimed' : 'foy-pending' ?>">
-                                    <?php echo ucfirst($key)?>
-                                </div>
+        <script>
+            const form = document.querySelector('#foy-select');
+            const input = document.querySelector('.foy-input');
+            const select = document.querySelector('#course-for-certificate');
 
-                                <?php
-                                    $courseCertLink = bp_get_course_certificate(array(
-                                        'course_id' => $course->ID, 
-                                        'user_id' => get_current_user_id()
-                                    ));
-                                    if($key == 'claimed'){?>
-                                        <a href="<?php echo $courseCertLink ?>" class="redirect-url-btn">Print</a> 
-                                    <?php
-                                    }else{ ?>
-                                        <a href="https://uk.hfonline.org/new-certificate-2023-test/?course-name=<?php echo $course->post_title ?><?php echo $category == true? '&course-type=qls' : ''?> " class="redirect-url-btn">Claim Now</a> 
-                                    <?php }
-                                ?> 
-                            </div>
-                        <?php
-                        }
-                    } else{?>
-                        <h4>No Course Found</h4>
-                    <?php }
-                }
-            } else {
-                echo "No courses found";
-            }
-        ?>
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const selectedOption = select.options[select.selectedIndex];
+                const dataContent = selectedOption.dataset.content;
+                input.value = dataContent;
+                form.submit();
+            });
+        </script>
+         
+
+        <div class="foy-certificate-middle-section">
+            <h1 class="select-course-title">or paste your course link here</h1>
+            <!-- <form id="foy-link-select" action="https://uk.hfonline.org/new-certificate-2023-test/" method="GET">
+                <input class="course-link" type="text" name="course-id">
+                <input class="course-type" type="text" name="course-type">
+
+                <button name="apply-button" type="submit">Apply</button>
+            </form> -->
+
+            <form id="foy-link-select" action="#" method="POST">
+                <input class="course-link" type="text" name="course-link" id="course-id-input">
+                <input class="course-type" type="text" name="course-type" value="" hidden>
+
+                <button id="foy-link-ap" name="foy-link-ap" type="submit" disabled>Apply</button>
+            </form>
+
+
+
+            <script>
+                const courseIdInput = document.getElementById('course-id-input');
+                console.log(courseIdInput);
+                const applyButton = document.getElementById('foy-link-ap');
+                courseIdInput.addEventListener('input', function() {
+                    
+                    var courseLink = courseIdInput.value;
+                    console.log(courseLink);
+                    if (courseLink.length > 0) {
+                        applyButton.removeAttribute('disabled');
+                    } else {
+                        applyButton.setAttribute('disabled', '');
+                    }
+                });
+             
+                // Get the course ID from the URL and set it as the value of the course ID input field
+                // const urlParams = new URLSearchParams(window.location.search);
+                // const courseId = urlParams.get('course-id');
+                // document.getElementById('course-id-input').value = courseId;
+
+                // // Set the value of the course type input field to "good"
+                // document.querySelector('input[name="course-type"]').value = 'good';
+
+                // // Disable the apply button until the course ID field is filled
+                // const applyButton = document.getElementById('apply-button');
+                // const courseIdInput = document.getElementById('course-id-input');
+
+                // courseIdInput.addEventListener('input', function() {
+                //     if (courseIdInput.value.length > 0) {
+                //         applyButton.removeAttribute('disabled');
+                //     } else {
+                //         applyButton.setAttribute('disabled', '');
+                //     }
+                // });
+            </script>
+        
+        </div>
+
+        <?php
+
+            // // Get the course link
+            // $course_link = 'http://localhost/MyProject/course/software-training/';
+
+            // // Extract the path from the URL
+            // $path = parse_url($course_link, PHP_URL_PATH);
+
+            // // Get the last segment of the path, which should be the course slug
+            // $segments = explode('/', rtrim($path, '/'));
+            // $course_slug = end($segments);
+
+            // // Query the database to find the course ID
+            // global $wpdb;
+            // $course_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_type = 'course' AND post_name = '$course_slug'");
+
+            // // Output the course ID
+            // // dd($course_id);
+            ?>
+
+
+
+        <div class="foy-certificate-bottom-section">
+            <h1 class="select-course-title">or select a Course from our popular categories</h1>
 
         </div>
+        
     </div>
 </section>
-<script>
-    jQuery("#course-for-certificate").chosen({
-        no_results_text: "Oops, nothing found!",
-        width: "592px",
-        // height: "56px",
-    });
-</script>
+
 <?php
 get_footer(vibe_get_footer());
