@@ -159,4 +159,155 @@
 		} 
 	}
 	add_shortcode( 'foy-timer', 'timer_function1' );
- ?>
+
+// Certificate Courses
+function certificate_data_fetch(){
+	$cat_id = $_REQUEST['cat_id'];
+	return $cat_id;
+	global $wpdb;
+	$courses = $wpdb->get_results(
+		$wpdb->prepare("
+			SELECT *, t.name as parent_name, meta.meta_value as student_assigned
+			FROM wp_posts p
+			INNER JOIN wp_term_relationships tr ON (p.ID = tr.object_id)
+			INNER JOIN wp_term_taxonomy tt ON (tr.term_taxonomy_id = tt.term_taxonomy_id)
+			INNER JOIN wp_terms t ON (tt.term_id = t.term_id)
+			LEFT JOIN wp_postmeta meta ON (p.ID = meta.post_id AND meta.meta_key = 'vibe_students')
+			WHERE p.post_type = 'course'
+			AND p.post_status = 'publish'
+			AND tt.taxonomy = 'course-cat'
+			AND tt.term_id = $cat_id
+			ORDER BY meta.meta_value DESC
+		")
+	);
+
+	return $courses;
+}
+add_action('wp_ajax_certificate_data_fetch', 'certificate_data_fetch');
+add_action('wp_ajax_nopriv_certificate_data_fetch', 'certificate_data_fetch');
+
+
+function custom_api_init() {
+	// https://yourdomain.com/wp-json/custom/v1/data/
+    register_rest_route( 'foy-post/', '/data/', array(
+        'methods' => 'POST',
+        'callback' => 'foy_api_data_insert'
+    ) );
+}
+add_action( 'rest_api_init', 'custom_api_init' );
+
+function foy_api_data_insert( $request ) {
+	$data = $request->get_params();
+	return rest_ensure_response( $data );
+    $data = array(
+        'message' => 'Hello, World!'
+    );
+    return rest_ensure_response( $data );
+}
+
+// $args = array(
+// 	// 'post_status' => 'publish',
+// 	'post_type' => 'course',
+// 	'meta_query' => array(
+// 		array(
+// 			// 'key' => 'average_rating',
+// 			'key' => 'vibe_students',
+// 		),
+// 		array(
+// 			'key' => 'vibe_product',
+// 			'value'   => array(''),
+// 			'compare' => 'NOT IN'
+// 		)
+// 	),
+// 	'tax_query' => array(
+//         array(
+//             'taxonomy' => 'course-cat',
+//             'terms' => 47
+//         )
+//     ),
+// 	'order' => 'DESC',
+// 	'posts_per_page' => 10,
+// );
+
+// $the_query = new WP_Query($args);
+// $courseCats = array('47');
+
+global $wpdb;
+ 
+
+// dd($courses);
+
+// Certificate Courses
+function data_fetch(){
+    $cat_id = isset($_GET['cat_id']) ? $_GET['cat_id'] : 0;
+	global $wpdb;
+	$courses = $wpdb->get_results(
+		$wpdb->prepare("
+			SELECT p.ID, p.name, p.post_content, p.slug, p.post_name, p.post_title, t.name as parent_name, meta.meta_value as student_assigned, pm.meta_value as post_thumbnail
+			FROM wp_posts p
+			INNER JOIN wp_term_relationships tr ON (p.ID = tr.object_id)
+			INNER JOIN wp_term_taxonomy tt ON (tr.term_taxonomy_id = tt.term_taxonomy_id)
+			INNER JOIN wp_terms t ON (tt.term_id = t.term_id)
+			LEFT JOIN wp_postmeta meta ON (p.ID = meta.post_id AND meta.meta_key = 'vibe_students')
+			LEFT JOIN wp_postmeta pm ON (p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id')
+			WHERE p.post_type = 'course'
+			AND p.post_status = 'publish'
+			AND tt.taxonomy = 'course-cat'
+			AND tt.term_id = $cat_id
+			ORDER BY meta.meta_value DESC
+            LIMIT 7
+		")
+	);
+    // Return the course data in JSON format
+    wp_send_json($courses);
+    // Don't forget to exit after sending the JSON response
+    wp_die();
+}
+add_action('wp_ajax_data_fetch', 'data_fetch');
+add_action('wp_ajax_nopriv_data_fetch', 'data_fetch');
+ 
+// $cat_id = 47;
+// global $wpdb;
+// $courses = $wpdb->get_results(
+// 	$wpdb->prepare("
+// 		SELECT ID, name, post_content, slug, post_name, post_title, t.name as parent_name, meta.meta_value as student_assigned, pm.meta_value as post_thumbnail, (SELECT guid FROM wp_posts WHERE ID = pm.meta_value) as thumbnail_url
+// 		FROM wp_posts p
+// 		INNER JOIN wp_term_relationships tr ON (p.ID = tr.object_id)
+// 		INNER JOIN wp_term_taxonomy tt ON (tr.term_taxonomy_id = tt.term_taxonomy_id)
+// 		INNER JOIN wp_terms t ON (tt.term_id = t.term_id)
+// 		LEFT JOIN wp_postmeta meta ON (p.ID = meta.post_id AND meta.meta_key = 'vibe_students')
+// 		LEFT JOIN wp_postmeta pm ON (p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id')
+// 		WHERE p.post_type = 'course'
+// 		AND p.post_status = 'publish'
+// 		AND tt.taxonomy = 'course-cat'
+// 		AND tt.term_id = 47
+// 		ORDER BY meta.meta_value DESC
+// 		LIMIT 7
+// 	")
+// );
+
+// foreach ($courses as $course) {
+//     // Get the thumbnail URL
+//     $thumbnail_id = $course->post_thumbnail;
+//     $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'thumbnail')[0];
+    
+//     // Do something with the thumbnail URL, e.g. display the image
+//     echo '<img src="' . $thumbnail_url . '">';
+// }
+
+// $courses = $wpdb->get_results(
+// 	$wpdb->prepare("
+// 		SELECT *, t.name as parent_name, meta.meta_value as student_assigned
+// 		FROM wp_posts p
+// 		INNER JOIN wp_term_relationships tr ON (p.ID = tr.object_id)
+// 		INNER JOIN wp_term_taxonomy tt ON (tr.term_taxonomy_id = tt.term_taxonomy_id)
+// 		INNER JOIN wp_terms t ON (tt.term_id = t.term_id)
+// 		LEFT JOIN wp_postmeta meta ON (p.ID = meta.post_id AND meta.meta_key = 'vibe_students')
+// 		WHERE p.post_type = 'course'
+// 		AND p.post_status = 'publish'
+// 		AND tt.taxonomy = 'course-cat'
+// 		AND tt.term_id = 47
+// 		ORDER BY meta.meta_value DESC
+// 	")
+// );
+// dd($courses);

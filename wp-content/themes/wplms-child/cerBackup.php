@@ -6,28 +6,36 @@
 class OrderCertificate {
     public function getCourses(){
         $user_id = get_current_user_id();
-        $user_certificates = get_user_meta( $user_id, 'certificates', true );
         $course_ids = bp_course_get_user_courses($user_id);
-    
-        if( $course_ids ){
-            $distinct_course_ids = array_unique($course_ids);
-            // dd($distinct_course_ids);
-            
-            // Get the common elements between $main and $array2
-            $common_elements = array_intersect( $user_certificates, $distinct_course_ids);
+        // echo "<pre>";
+        // var_dump($user_certificates);
+        // echo "</pre>";
 
-            // Get the elements of $array2 that are not in $main
-            $different_elements = array_diff($distinct_course_ids, $user_certificates);
+        if( $course_ids ){
+            // get user certificates(string)
+            $user_certificates = get_user_meta( $user_id, 'certificates', true );
+            // get the distinct course ids
+            $distinct_course_ids = array_unique($course_ids);
+
+            // dd($distinct_course_ids);
+            if($user_certificates != NULL){
+                // Get the common elements between
+                $common_elements = array_intersect( $user_certificates, $distinct_course_ids);
+                $different_elements = array_diff($distinct_course_ids, $user_certificates);
+            }else{
+                $common_elements = array('');
+                $different_elements =  $distinct_course_ids;
+            }
             
             // Create the two separate arrays
-           
             $claimed = count( $common_elements )>0 ? $common_elements : array('');
             $pending = count( $different_elements )>0 ? $different_elements : array('');
             
-            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1; 
+
             $default = array(  
                 'post_type' => 'course',
                 'post_status' => 'publish',
+                'posts_per_page' => -1, 
                 'orderby' => 'date', 
                 'order' => 'ASC', 
                 'meta_query' => array(
@@ -43,36 +51,27 @@ class OrderCertificate {
                     // ),
                 ),
             );
-            $claimed_arg = array(  
+            $claimed = array(  
                 'post__in' =>  $claimed,
-                'posts_per_page' => 3, // number of courses per page
             );
-            $pending_arg = array(  
+            $pending = array(  
                 'post__in' =>  $pending,
-                'posts_per_page' => 1, // number of courses per page
-                'paged' => $paged,
             );
-            $allPending_arg = array(  
-                'post__in' =>  $pending,
-                'posts_per_page' => -1,  
-            );
-            $claimed_merged_args = array_merge($default, $claimed_arg);
-            $pending_merged_args = array_merge($default, $pending_arg);
-            $all_pending_cources_args = array_merge($default, $allPending_arg);
+            $claimed_merged_args = array_merge($default, $claimed);
+            $pending_merged_args = array_merge($default, $pending);
+            // dd($claimed_merged_args);
 
             $claimed_cources = new WP_Query( $claimed_merged_args );
             $pending_cources = new WP_Query( $pending_merged_args );
-            $all_pending_cources = new WP_Query( $all_pending_cources_args );
+            // dd($claimed_cources);
 
             $data = array(
-                'claimed' => $claimed_cources,
-                'pending' => $pending_cources,
-                'allPending' => $all_pending_cources
+                'claimed' => $claimed_cources->posts,
+                'pending' => $pending_cources->posts
             ); 
         }else{
             $data = [];
         }
-        // dd($data);
         return $data;  
     }
     public function getAllCourses(){
@@ -105,38 +104,45 @@ class OrderCertificate {
     public function courseCount(){
 
         $user_id = get_current_user_id();
-        $user_certificates = get_user_meta( $user_id, 'certificates', true );
-        $course_ids = bp_course_get_user_courses($user_id);
-        
-        if( $course_ids ){
-            $distinct_course_ids = array_unique($course_ids);
-        
-            // Get the common elements, meaning certificate claimed
-            $claimed_cources = count(array_intersect( $user_certificates, $distinct_course_ids));
-            // get courses that has certificate
-            $taken = array(  
-                'post_type' => 'course',
-                'post_status' => 'publish',
-                'posts_per_page' => -1, 
-                'orderby' => 'date', 
-                'order' => 'ASC', 
-                'meta_query' => array(
-                    array(
-                        'key' => 'vibe_certificate_template',
-                        'compare' => '!=',
-                        'value' => ''
+        // var_dump( $user_id);
+        $taken_cources = 0 ;
+        $claimed_cources = 0;
+        if($user_id){
+            $user_certificates = get_user_meta( $user_id, 'certificates', true );
+            $course_ids = bp_course_get_user_courses($user_id);
+    
+         
+            if( count($course_ids) > 0 ){
+                $distinct_course_ids = count(array_unique($course_ids)) > 0 ? array_unique($course_ids) : array('');
+                $claimed_cources = count(array_intersect( $user_certificates, $distinct_course_ids)) ?? 0;
+    
+                // get courses that has certificate
+                $taken = array(  
+                    'post_type' => 'course',
+                    'post_status' => 'publish',
+                    'posts_per_page' => -1, 
+                    'orderby' => 'date', 
+                    'order' => 'ASC', 
+                    'meta_query' => array(
+                        array(
+                            'key' => 'vibe_certificate_template',
+                            'compare' => '!=',
+                            'value' => ''
+                        ),
+                        // array(
+                        //     'key' => 'vibe_product',
+                        //     'value'   => array(''),
+                        //     'compare' => 'NOT IN'
+                        // ),
                     ),
-                    // array(
-                    //     'key' => 'vibe_product',
-                    //     'value'   => array(''),
-                    //     'compare' => 'NOT IN'
-                    // ),
-                ),
-                'post__in' =>  $distinct_course_ids,
-                'fields' => 'ids'
-            );
-            $taken_cources = count( get_posts( $taken ) );
+                    'post__in' =>  $distinct_course_ids,
+                    'fields' => 'ids'
+                );
+                $taken_cources = count( get_posts( $taken ) );
+            }
         }
+         
+        
 
         // All courses
         $allCourses = array(
@@ -159,7 +165,6 @@ class OrderCertificate {
         );
         
         $all_courses = count( get_posts( $allCourses ) );
-        // dd($all_courses->post_count);
         $data = array(
             'all' => $all_courses,
             'taken' =>  $taken_cources,
@@ -191,6 +196,7 @@ class OrderCertificate {
             return $msg;
             // echo "<script>window.location = '?error=".$msg."';</script>";
          }
+        
     }
 }
 ?>

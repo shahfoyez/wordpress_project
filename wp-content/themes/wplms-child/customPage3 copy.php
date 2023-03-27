@@ -14,6 +14,7 @@
     $order_obj = new OrderCertificate();
     // get user's courses that has an associated certificate
     $allType = $order_obj->getCourses();
+    // dd($allType);
     $selectCourses =  $allType;
 ?>
 <section>
@@ -26,12 +27,9 @@
                 <select name="course-id" id="course-for-certificate" onclick="foyFunction(this)">
                     <option selected>Search for Your Desired Courses</option>
                     <?php
-                        if ( count($allType) > 0) {
+                        if (count($allType) > 0) {
                             foreach ($allType as $key => $courseType){
-                                if($key == 'pending'){
-                                    continue;
-                                }
-                                foreach ($courseType->posts as $course) {
+                                foreach ($courseType as $course) {
                                     $category = has_term( 'qls', 'course-cat', $course->ID );
                                     ?>  
                                     <option 
@@ -63,72 +61,49 @@
             </script>
         </div>
         <div class="foy-certificate-bottom-section">
-            <!-- Claimed Courses -->
-            <?php
-                if ($allType['claimed']) { ?>
-                    <div class="foy-heading">
-                        <p class="foy-type-heading">Claimed</p>
-                    </div>
-                    <?php
-                    $claimedCourses = $allType['claimed']->posts;
-                    if (count( $claimedCourses) > 0 ) {
-                        foreach ( $claimedCourses as $course) {
+
+        <?php
+            if ($allType) {
+                foreach ($allType as $key => $courseType) { ?>
+                <div class="foy-heading">
+                    <p class="foy-type-heading"><?php echo ucfirst($key)?></p>
+                </div>
+                <?php
+                    if (count($courseType) > 0) {
+                        foreach ($courseType as $course) {
                             // dd( $course);
                             $category = has_term( 'qls', 'course-cat', $course->ID );
                             // dd( $category );
                             $title = $course->post_title . "<br>";
-                            $courseCertLink = bp_get_course_certificate(array(
-                                'course_id' => $course->ID, 
-                                'user_id' => get_current_user_id()
-                            ));
-                        ?>
-                            <div class="certificate-merit-card">
-                                <img src="<?php echo get_theme_file_uri(); ?>/assets/img/certificate.webp" alt="">
-                                <h1 class="certificate-course-title"><?php echo $title ?></h1>
-                                <div class="certificate-status foy-claimed">
-                                    Claimed
-                                </div>
-                                <a href="<?php echo $courseCertLink ?>" class="redirect-url-btn">Print</a> 
-                            </div>
-                        <?php }
-                    }else{ ?>
-                        <h4>No Course Found</h4>
-                    <?php }
-                } 
-            ?>
-            <!-- Pending Courses -->
-            <?php
-                if ($allType['pending']) { ?>
-                    <div class="foy-heading">
-                        <p class="foy-type-heading">Pending</p>
-                    </div>
-                    <?php
-                    $total_pages = $allType['pending']->max_num_pages; 
-                    $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-                    $pendingCourses = $allType['pending']->posts;
-                    if (count( $pendingCourses) > 0 ) {
-                        foreach ( $pendingCourses as $course) {
-                            // dd( $course);
-                            $category = has_term( 'qls', 'course-cat', $course->ID );
-                            // dd( $category );
-                            $title = $course->post_title . "<br>";
-                            $courseCertLink = bp_get_course_certificate(array(
-                                'course_id' => $course->ID, 
-                                'user_id' => get_current_user_id()
-                            ));
                             ?>
                             <div class="certificate-merit-card">
                                 <img src="<?php echo get_theme_file_uri(); ?>/assets/img/certificate.webp" alt="">
                                 <h1 class="certificate-course-title"><?php echo $title ?></h1>
-                                <div class="certificate-status foy-pending">
-                                    Pending
+                                <div class="certificate-status <?php echo $key == 'claimed' ? 'foy-claimed' : 'foy-pending' ?>">
+                                    <?php echo ucfirst($key)?>
                                 </div>
-                                <a href="https://uk.hfonline.org/new-certificate-2023-test/?course-id=<?php echo $course->ID ?><?php echo $category == true ? '&course-type=qls' : ''?> " class="redirect-url-btn">Claim Now</a> 
+
+                                <?php
+                                    $courseCertLink = bp_get_course_certificate(array(
+                                        'course_id' => $course->ID, 
+                                        'user_id' => get_current_user_id()
+                                    ));
+                                    if($key == 'claimed'){?>
+                                        <a href="<?php echo $courseCertLink ?>" class="redirect-url-btn">Print</a> 
+                                    <?php
+                                    }else{ ?>
+                                        <a href="https://uk.hfonline.org/new-certificate-2023-test/?course-id=<?php echo $course->ID ?><?php echo $category == true ? '&course-type=qls' : ''?> " class="redirect-url-btn">Claim Now</a> 
+                                    <?php }
+                                ?> 
                             </div>
-                        <?php } ?> 
-                        
+                            <?php
+                            $total_pages = 2;
+                            $paged = 1;
+                        }?>
                         <!-- pagination -->
-                        <div class="pagination">
+
+
+                        <!-- <div class="pagination">
                             <?php
                                 echo paginate_links(array(
                                     'total' => $total_pages,
@@ -137,13 +112,19 @@
                                     'next_text' => __('next »'),
                                 ));
                             ?>
-                        </div>
+                        </div> -->
+                        
+
                         <?php
                     }else{ ?>
                         <h4>No Course Found</h4>
                     <?php }
-                } 
-            ?>
+                }
+            } else {
+                echo "No courses found";
+            }
+        ?>
+
         </div>
     </div>
 </section>

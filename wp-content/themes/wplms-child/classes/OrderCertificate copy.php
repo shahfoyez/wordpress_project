@@ -20,7 +20,6 @@ class OrderCertificate {
             $different_elements = array_diff($distinct_course_ids, $user_certificates);
             
             // Create the two separate arrays
-           
             $claimed = count( $common_elements )>0 ? $common_elements : array('');
             $pending = count( $different_elements )>0 ? $different_elements : array('');
             
@@ -49,16 +48,16 @@ class OrderCertificate {
             );
             $pending_arg = array(  
                 'post__in' =>  $pending,
-                'posts_per_page' => 1, // number of courses per page
+                'posts_per_page' => 2, // number of courses per page
                 'paged' => $paged,
             );
             $allPending_arg = array(  
                 'post__in' =>  $pending,
                 'posts_per_page' => -1,  
             );
-            $claimed_merged_args = array_merge($default, $claimed_arg);
-            $pending_merged_args = array_merge($default, $pending_arg);
-            $all_pending_cources_args = array_merge($default, $allPending_arg);
+            $claimed_merged_args = array_merge($default, $claimed);
+            $pending_merged_args = array_merge($default, $pending);
+            $all_pending_cources_args = array_merge($default, $allPending);
 
             $claimed_cources = new WP_Query( $claimed_merged_args );
             $pending_cources = new WP_Query( $pending_merged_args );

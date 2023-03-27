@@ -14,28 +14,16 @@ get_header(vibe_get_header());
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['foy-link-ap'])) {
-            // Get the course link
-            $course_link = $_POST['course-link'];
-
-            // Extract the path from the URL
-            $path = parse_url($course_link, PHP_URL_PATH);
-
-            // Get the last segment of the path, which should be the course slug
-            $segments = explode('/', rtrim($path, '/'));
-            $course_slug = end($segments);
-
-            // Query the database to find the course ID
-            global $wpdb;
-            $course_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_type = 'course' AND post_name = '$course_slug'");
-            $category = has_term( 'qls', 'course-cat', $course_id );
-            
+            $linkRedirect = $order_obj->courseLinkIdExtract($_POST);
         }
     }
 ?>
 <section>
     <?php do_action('wplms_before_title'); ?>
     <div class="container" id="cert-container-page1">
-        
+        <div class="foy-progress">
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/pr_2.png" alt="">
+        </div>
         <div class="foy-certificate-top-section">
             <h1 class="select-course-title">Pre-order your certificate</h1>
             <form id="foy-select" action="https://uk.hfonline.org/new-certificate-2023-test/" method="GET">
@@ -58,7 +46,7 @@ get_header(vibe_get_header());
                     ?>
                 </select>
                 <input name="course-type" class="foy-input" type="text" hidden>
-                <button id="proceed-button" name="proceed-button" type="submit">Proceed</button>
+                <button id="proceed-button" name="proceed-button" type="submit" disabled>Proceed</button>
             </form>
              
         </div>
@@ -67,6 +55,17 @@ get_header(vibe_get_header());
             const form = document.querySelector('#foy-select');
             const input = document.querySelector('.foy-input');
             const select = document.querySelector('#course-for-certificate');
+            const proceedButton = document.querySelector('#proceed-button');
+            // Disable the button by default
+            proceedButton.disabled = true;
+            // Enable the button when an option is selected
+            select.addEventListener('change', () => {
+                if (select.value !== '') {
+                    proceedButton.disabled = false;
+                } else {
+                    proceedButton.disabled = true;
+                }
+            });
 
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
@@ -86,15 +85,17 @@ get_header(vibe_get_header());
 
                 <button name="apply-button" type="submit">Apply</button>
             </form> -->
-
-            <form id="foy-link-select" action="#" method="POST">
+            <?php
+                if(isset($linkRedirect) ){
+                    echo "<span class='foy-error'>Sorry! Course not found!</span>";
+                }
+            ?>
+            <form id="foy-link-select" action="" method="POST">
                 <input class="course-link" type="text" name="course-link" id="course-id-input">
                 <input class="course-type" type="text" name="course-type" value="" hidden>
 
                 <button id="foy-link-ap" name="foy-link-ap" type="submit" disabled>Apply</button>
             </form>
-
-
 
             <script>
                 const courseIdInput = document.getElementById('course-id-input');
@@ -110,26 +111,6 @@ get_header(vibe_get_header());
                         applyButton.setAttribute('disabled', '');
                     }
                 });
-             
-                // Get the course ID from the URL and set it as the value of the course ID input field
-                // const urlParams = new URLSearchParams(window.location.search);
-                // const courseId = urlParams.get('course-id');
-                // document.getElementById('course-id-input').value = courseId;
-
-                // // Set the value of the course type input field to "good"
-                // document.querySelector('input[name="course-type"]').value = 'good';
-
-                // // Disable the apply button until the course ID field is filled
-                // const applyButton = document.getElementById('apply-button');
-                // const courseIdInput = document.getElementById('course-id-input');
-
-                // courseIdInput.addEventListener('input', function() {
-                //     if (courseIdInput.value.length > 0) {
-                //         applyButton.removeAttribute('disabled');
-                //     } else {
-                //         applyButton.setAttribute('disabled', '');
-                //     }
-                // });
             </script>
         
         </div>

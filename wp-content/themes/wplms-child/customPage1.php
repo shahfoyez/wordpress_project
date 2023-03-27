@@ -11,8 +11,11 @@ get_header(vibe_get_header());
 <section>
     <?php do_action('wplms_before_title'); ?>
     <div class="container" id="cert-container-page1">
+        <div class="foy-progress">
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/pr_1.png" alt="">
+        </div>
         <div class="certificate-order-card">
-            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/certificate.webp" alt="">
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/cert_template.png" alt="">
             <div class="cert-type-title">
                 <h1>certification that you merit</h1>
                 <h4>certificate section for your enrolled courses</h4>
@@ -28,7 +31,7 @@ get_header(vibe_get_header());
         </div>
 
         <div class="certificate-order-card">
-            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/certificate.webp" alt="">
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/cert_template.png" alt="">
             <div class="cert-type-title">
                 <h1>Pre-order section</h1>
                 <h4>Pre-order for any course</h4>
@@ -44,7 +47,7 @@ get_header(vibe_get_header());
         </div>
 
         <div class="certificate-order-card">
-            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/certificate.webp" alt="">
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/cert_gift.png" alt="">
             <div class="cert-type-title">
                 <h1>Gift Certificate</h1>
                 <h4>Gift any certificate to your close ones</h4>
@@ -54,16 +57,6 @@ get_header(vibe_get_header());
                     “Share knowledge to create <br> learning processes”
                 </h3>
             </div>
-            <a href="#" class="redirect-url-btn">claim your certificate</a>
-        </div>
-
-        <div class="certificate-order-card">
-            <img src="<?php echo get_theme_file_uri(); ?>/assets/img/certificate.webp" alt="">
-            <div class="cert-type-title">
-                <h1>Claim your certificate</h1>
-                <h4>claim your pre-ordered certificate</h4>
-            </div>
-            <div class="progress-container"></div>
             <a href="#" class="redirect-url-btn">claim your certificate</a>
         </div>
     </div>
