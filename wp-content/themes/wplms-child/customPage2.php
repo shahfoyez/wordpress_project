@@ -68,6 +68,7 @@ get_header(vibe_get_header());
             });
 
             form.addEventListener('submit', (event) => {
+              
                 event.preventDefault();
                 const selectedOption = select.options[select.selectedIndex];
                 const dataContent = selectedOption.dataset.content;
