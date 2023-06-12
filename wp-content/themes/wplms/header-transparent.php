@@ -62,13 +62,30 @@ wp_head();
                             if ( function_exists('bp_loggedin_user_link') && is_user_logged_in() ) :
                                 ?>
                                 <ul class="topmenu">
-                                    <li><a href="<?php bp_loggedin_user_link(); ?>" class="smallimg vbplogin"><?php $n=vbp_current_user_notification_count(); echo ((isset($n) && $n)?'<em></em>':''); bp_loggedin_user_avatar( 'type=full' ); ?><span><?php bp_loggedin_user_fullname(); ?></span></a></li>
+                                    <li>
+                                        <a href="<?php bp_loggedin_user_link(); ?>" class="smallimg vbplogin">
+                                            <?php 
+                                                $n=vbp_current_user_notification_count(); 
+                                                echo ((isset($n) && $n)?'<em></em>':''); 
+                                                bp_loggedin_user_avatar( 'type=full' ); 
+                                            ?>
+                                            <span>
+                                                <?php bp_loggedin_user_fullname(); ?>
+                                            </span>
+                                        </a>
+                                    </li>
                                     <?php
                                     
                                     if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )  || (function_exists('vibe_check_plugin_installed') && vibe_check_plugin_installed( 'woocommerce/woocommerce.php')) && $show_cart) { global $woocommerce;
                                     ?>
-                                    <li><a class="smallimg vbpcart"><span class="fa fa-shopping-basket"><?php echo (($woocommerce->cart->cart_contents_count)?'<em>'.$woocommerce->cart->cart_contents_count.'</em>':''); ?></span></a>
-                                    <div class="woocart"><div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(); ?></div></div>
+                                    <li>
+                                        <a class="smallimg vbpcart"><span class="fa fa-shopping-basket">
+                                            <?php echo (($woocommerce->cart->cart_contents_count)?'<em>'.$woocommerce->cart->cart_contents_count.'</em>':''); ?></span>
+                                        </a>
+                                        <div class="woocart">
+                                            <div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(); ?>
+                                            </div>
+                                        </div>
                                     </li>
                                     <?php
                                     }
@@ -98,7 +115,7 @@ wp_head();
                                 $style='default_login';
                             }
                         ?>
-                        <div id="vibe_bp_login" class="<?php echo vibe_sanitizer($style,'text'); ?>">
+                        <div id="vibe_bp_login" class="<?php echo vibe_sanitizer($style,'text'); ?> hello">
                         <?php
                             vibe_include_template("login/$style.php");
                         ?>

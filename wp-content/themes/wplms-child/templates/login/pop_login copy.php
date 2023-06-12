@@ -260,157 +260,48 @@ if ( is_user_logged_in() ) :
 		</ul>	
 		<ul>
 <?php
-// $loggedin_menu = array(
-//     'courses'=>array(
-//         'icon' => 'icon-book-open-1',
-//         'label' => __('Courses','vibe'),
-//         'link' => bp_loggedin_user_domain().BP_COURSE_SLUG
-//     ),
-//     'stats'=>array(
-//         'icon' => 'icon-analytics-chart-graph',
-//         'label' => __('Stats','vibe'),
-//         'link' => bp_loggedin_user_domain().BP_COURSE_SLUG.'/'.BP_COURSE_STATS_SLUG
-//     )
-//   );
-// if ( bp_is_active( 'messages' ) ){
-//     $loggedin_menu['messages']=array(
-//         'icon' => 'icon-letter-mail-1',
-//         'label' => __('Inbox','vibe').(messages_get_unread_count()?' <span>' . messages_get_unread_count() . '</span>':''),
-//         'link' => bp_loggedin_user_domain().BP_MESSAGES_SLUG
-//     );
-// }
-// if ( bp_is_active( 'notifications' ) ){  
-//   	$n=vbp_current_user_notification_count();
-//   	$loggedin_menu['notifications']=array(
-//       	'icon' => 'icon-exclamation',
-//       	'label' => __('Notifications','vibe').(($n)?' <span>'.$n.'</span>':''),
-//       	'link' => bp_loggedin_user_domain().BP_NOTIFICATIONS_SLUG
-//   	);
-// }
-
-// if ( bp_is_active( 'groups' ) ){
-//     $loggedin_menu['groups']=array(
-//         'icon' => 'icon-myspace-alt',
-//         'label' => __('Groups','vibe'),
-//         'link' => bp_loggedin_user_domain().BP_GROUPS_SLUG 
-//     );
-// }
-
-// $loggedin_menu['settings']=array(
-//     'icon' => 'icon-settings',
-//     'label' => __('Settings','vibe'),
-//     'link' => bp_loggedin_user_domain().BP_SETTINGS_SLUG
-// );
-
-
-
-$loggedin_menu = array();
-if ( !defined( 'WPLMS_DASHBOARD_SLUG' ) ){
-    define ( 'WPLMS_DASHBOARD_SLUG', 'dashboard' );
-}
-$current_user = wp_get_current_user();
-$username = $current_user->user_login;
-
 $loggedin_menu = array(
-    'dashboard'=>array(
-        // 'icon' => 'icon-meter',
-        'image' => 'https://www.janets.org.uk/wp-content/themes/wplmsblankchildhtheme/assets/img/email.png',
-        'label' => __('Dashboard','vibe-customtypes'),
-        'link' => home_url('/learners-dashboard')
-    ),
-    'courses'=>array(
-        'icon' => 'icon-book-open-1',
-        'label' => __('Courses','vibe'),
-        'link' => home_url('/my-courses-dashboard')
-    ),
-    'stats'=>array(
-        'icon' => 'icon-analytics-chart-graph',
-        'label' => __('Stats','vibe'),
-        'link' => home_url('/learners-certificates')
-    ),
-    'inbox'=>array(
-        'icon' => 'icon-letter-mail-1',
-        'label' => __('Inbox','vibe-customtypes'),
-        'link' => home_url('/learners-messages')
-    ),
-    'rewards'=>array(
-        'icon' => 'fa fa-trophy',
-        'label' => __('My Rewards','vibe'),
-        'link' => home_url('/learners-rewards')
-    ),
-    'settings'=>array(
-        'icon' => 'icon-settings',
-        'label' => __('Settings','vibe-customtypes'),
-        'link' => home_url('/learners-rewards')
-    ),
-    'card'=>array(
-        'icon' => 'fa fa-id-card-o',
-        'label' => __('Student Card','vibe-customtypes'),
-        'link' => home_url('/student-portal')
-    ),
-    'wishlist'=>array(
-        'icon' => 'icon-heart',
-        'label' => __('Wishlist','vibe-customtypes'),
-        'link' => home_url('/'.$username.'/wishlist')
-    ),
-    'orders'=>array(
-        'icon' => 'icon-list',
-        'label' => __('My Orders','vibe-customtypes'),
-        'link' => home_url('/learners-orders')
-    ),
-);
-// if ( bp_is_active( 'notifications' ) ){  
-//     $n=vbp_current_user_notification_count();
-//     $loggedin_menu['notifications']=array(
-//         'icon' => 'icon-exclamation',
-//         'label' => __('Notifications','vibe').(($n)?' <span>'.$n.'</span>':''),
-//         'link' => home_url('/learners-dashboard')
-//     );
-// }
-// $loggedin_menu['dashboard'] = array(
-//     'icon' => 'icon-meter',
-//     'label' => __('Dashboard','vibe-customtypes'),
-//     'link' => home_url('/learners-dashboard')
-// );
-// $loggedin_menu['courses'] = array(
-//     'icon' => 'icon-book-open-1',
-//     'label' => __('Courses','vibe-customtypes'),
-//     'link' => home_url('/my-courses-dashboard')
-// );
-// $loggedin_menu['stats'] = array(
-//     'icon' => 'icon-analytics-chart-graph',
-//     'label' => __('Stats','vibe-customtypes'),
-//     'link' => home_url('/learners-certificates')
-// );
-// $loggedin_menu['inbox'] = array(
-//     'icon' => 'icon-analytics-chart-graph',
-//     'label' => __('Inbox','vibe-customtypes'),
-//     'link' => home_url('/learners-messages')
-// );
-// if ( bp_is_active( 'messages' ) ){
-//     $loggedin_menu['messages']=array(
-//         'icon' => 'icon-letter-mail-1',
-//         'label' => __('Inbox{{inbox_count}}','vibe-customtypes'),
-//         'link' => home_url('/learners-dashboard')
-//     );
-// }
-// if ( bp_is_active( 'notifications' ) ){  
-//   	$n=vbp_current_user_notification_count();
-//   	$loggedin_menu['notifications']=array(
-//       	'icon' => 'icon-exclamation',
-//       	'label' => __('Notifications','vibe').(($n)?' <span>'.$n.'</span>':''),
-//       	'link' => home_url('/learners-dashboard')
-//   	);
-// }
-// if ( bp_is_active( 'groups' ) ){
-//     $loggedin_menu['groups']=array(
-//         'icon' => 'icon-myspace-alt',
-//         'label' => __('Groups','vibe-customtypes'),
-//         'link' => home_url('/learners-dashboard')
-//     );
-// }
- 
-// $loggedin_menu = apply_filters('wplms_logged_in_top_menu',$loggedin_menu);
+  'courses'=>array(
+              'icon' => 'icon-book-open-1',
+              'label' => __('Courses','vibe'),
+              'link' => bp_loggedin_user_domain().BP_COURSE_SLUG
+              ),
+  'stats'=>array(
+              'icon' => 'icon-analytics-chart-graph',
+              'label' => __('Stats','vibe'),
+              'link' => bp_loggedin_user_domain().BP_COURSE_SLUG.'/'.BP_COURSE_STATS_SLUG
+              )
+  );
+if ( bp_is_active( 'messages' ) ){
+  $loggedin_menu['messages']=array(
+              'icon' => 'icon-letter-mail-1',
+              'label' => __('Inbox','vibe').(messages_get_unread_count()?' <span>' . messages_get_unread_count() . '</span>':''),
+              'link' => bp_loggedin_user_domain().BP_MESSAGES_SLUG
+              );
+}
+if ( bp_is_active( 'notifications' ) ){  
+  	$n=vbp_current_user_notification_count();
+  	$loggedin_menu['notifications']=array(
+      	'icon' => 'icon-exclamation',
+      	'label' => __('Notifications','vibe').(($n)?' <span>'.$n.'</span>':''),
+      	'link' => bp_loggedin_user_domain().BP_NOTIFICATIONS_SLUG
+  	);
+}
+
+if ( bp_is_active( 'groups' ) ){
+  $loggedin_menu['groups']=array(
+              'icon' => 'icon-myspace-alt',
+              'label' => __('Groups','vibe'),
+              'link' => bp_loggedin_user_domain().BP_GROUPS_SLUG 
+              );
+}
+
+$loggedin_menu['settings']=array(
+              'icon' => 'icon-settings',
+              'label' => __('Settings','vibe'),
+              'link' => bp_loggedin_user_domain().BP_SETTINGS_SLUG
+              );
+$loggedin_menu = apply_filters('wplms_logged_in_top_menu',$loggedin_menu);
 foreach($loggedin_menu as $item){
   echo '<li><a href="'.$item['link'].'"><i class="'.$item['icon'].'"></i>'.$item['label'].'</a></li>';
 }

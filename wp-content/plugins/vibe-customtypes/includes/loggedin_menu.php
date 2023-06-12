@@ -320,45 +320,45 @@
 				define ( 'WPLMS_DASHBOARD_SLUG', 'dashboard' );
 
 			$loggedin_menu['dashboard'] = array(
-		              'icon' => 'icon-meter',
-		              'label' => __('Dashboard','vibe-customtypes'),
-		              'link' => '{{userprofile}}'.WPLMS_DASHBOARD_SLUG
+				'icon' => 'icon-meter',
+				'label' => __('Dashboard','vibe-customtypes'),
+				'link' => '{{userprofile}}'.WPLMS_DASHBOARD_SLUG
           	);
     		$loggedin_menu['courses'] = array(
-			              'icon' => 'icon-book-open-1',
-			              'label' => __('Courses','vibe-customtypes'),
-			              'link' => '{{userprofile}}'.BP_COURSE_SLUG
-			              );
+				'icon' => 'icon-book-open-1',
+				'label' => __('Courses','vibe-customtypes'),
+				'link' => '{{userprofile}}'.BP_COURSE_SLUG
+			);
 			$loggedin_menu['stats'] = array(
-			              'icon' => 'icon-analytics-chart-graph',
-			              'label' => __('Stats','vibe-customtypes'),
-			              'link' => '{{userprofile}}'.BP_COURSE_SLUG.'/'.BP_COURSE_STATS_SLUG
-			              );
+				'icon' => 'icon-analytics-chart-graph',
+				'label' => __('Stats','vibe-customtypes'),
+				'link' => '{{userprofile}}'.BP_COURSE_SLUG.'/'.BP_COURSE_STATS_SLUG
+			);
 			if ( bp_is_active( 'messages' ) ){
 			  	$loggedin_menu['messages']=array(
-			              'icon' => 'icon-letter-mail-1',
-			              'label' => __('Inbox{{inbox_count}}','vibe-customtypes'),
-			              'link' => '{{userprofile}}'.BP_MESSAGES_SLUG
-			              );
+					'icon' => 'icon-letter-mail-1',
+					'label' => __('Inbox{{inbox_count}}','vibe-customtypes'),
+					'link' => '{{userprofile}}'.BP_MESSAGES_SLUG
+				);
 			}
 			if ( bp_is_active( 'notifications' ) ){
-				  $loggedin_menu['notifications']=array(
-				              'icon' => 'icon-exclamation',
-				              'label' => 'Notifications{{notification_count}}',
-				              'link' => '{{userprofile}}'.BP_NOTIFICATIONS_SLUG
-				              );
+				$loggedin_menu['notifications']=array(
+					'icon' => 'icon-exclamation',
+					'label' => 'Notifications{{notification_count}}',
+					'link' => '{{userprofile}}'.BP_NOTIFICATIONS_SLUG
+				);
 			}
 			if ( bp_is_active( 'groups' ) ){
 			  	$loggedin_menu['groups']=array(
-			              'icon' => 'icon-myspace-alt',
-			              'label' => __('Groups','vibe-customtypes'),
-			              'link' => '{{userprofile}}'.BP_GROUPS_SLUG 
-			              );
+					'icon' => 'icon-myspace-alt',
+					'label' => __('Groups','vibe-customtypes'),
+					'link' => '{{userprofile}}'.BP_GROUPS_SLUG 
+				);
 			}
 			$loggedin_menu['settings']=array(
-			              'icon' => 'icon-settings',
-			              'label' => __('Settings','vibe-customtypes'),
-			              'link' => '{{userprofile}}'.BP_SETTINGS_SLUG
+				'icon' => 'icon-settings',
+				'label' => __('Settings','vibe-customtypes'),
+				'link' => '{{userprofile}}'.BP_SETTINGS_SLUG
           	);
 			if(!doing_filter('wplms_logged_in_top_menu'))
           		$loggedin_menu = apply_filters('wplms_logged_in_top_menu',$loggedin_menu);

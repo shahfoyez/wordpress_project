@@ -4,8 +4,55 @@
 		// wp_enqueue_style( "singleCourse-css", get_theme_file_uri("/assets/css/singleCourse.css" ), null, "1.5" );
 	} 
 	add_action( 'wp_enqueue_scripts', 'wplms_child_enqueue_styles' );
+	add_action( 'wp_enqueue_scripts', 'add_ajax_url' );
 
+	function add_ajax_url() {
+		wp_localize_script( 'jquery', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
+	}
+	
 	function timer_function( $atts ){
+		
+
+
+	 
+		global $wpdb;
+		
+		// Query the database to retrieve user-wise course count
+		$query = "
+			SELECT COUNT(DISTINCT p.ID) AS course_count, u.ID AS user_id
+			FROM {$wpdb->prefix}posts AS p
+			INNER JOIN {$wpdb->prefix}postmeta AS pm ON p.ID = pm.post_id
+			INNER JOIN {$wpdb->prefix}users AS u ON pm.meta_value = u.ID
+			WHERE p.post_type = 'course'
+			AND p.post_status = 'publish'
+			GROUP BY u.ID
+		";
+		
+		$results = $wpdb->get_results($query);
+		dd($results);
+		if (!empty($results)) {
+			foreach ($results as $result) {
+				$user_id = $result->user_id;
+				$course_count = $result->course_count;
+		
+				// Output the user ID and course count
+				echo "User ID: $user_id | Course Count: $course_count <br>";
+			}
+		} else {
+			echo "No results found.";
+		}
+
+	
+		
+		
+		
+		
+
+
+
+
+
+
 		$id = $atts['id'];
 		?>
 		
@@ -265,7 +312,51 @@ function data_fetch(){
 }
 add_action('wp_ajax_data_fetch', 'data_fetch');
 add_action('wp_ajax_nopriv_data_fetch', 'data_fetch');
+
  
+add_action('bp_member_options_nav','custom_link123');
+
+function custom_link123(){
+
+  if(is_user_logged_in())
+    echo '<li id="custom_link"><a href="custom-link">Custom</a></li>';
+}
+
+// function register_custom_taxonomy() {
+//     $labels = array(
+//         'name' => __( 'Level', 'textdomain' ),
+//         'singular_name' => __( 'Level', 'textdomain' ),
+//         'menu_name' => __( 'Level', 'textdomain' ),
+//         // add more labels as needed
+//     );
+
+//     $args = array(
+//         'labels' => $labels,
+//         'public' => true,
+//         'hierarchical' => false,
+//         'show_ui' => true,
+//         'show_admin_column' => true,
+//         'query_var' => true,
+//         'rewrite' => array( 'slug' => 'level' ),
+//     );
+
+//     register_taxonomy( 'level', array( 'post' ), $args );
+// }
+// add_action( 'init', 'register_custom_taxonomy', 0 );
+ 
+// add_action( 'init', 'add_custom_taxonomy_terms', 1 );
+// function add_course_level_meta_box() {
+//     add_meta_box(
+//         'course_level_meta_box', // ID
+//         'Level', // Title
+//         'course_level_meta_box_callback', // Callback function
+//         'course', // Post type
+//         'side', // Context
+//         'default' // Priority
+//     );
+// }
+// add_action( 'add_meta_boxes', 'add_course_level_meta_box' );
+
 // $cat_id = 47;
 // global $wpdb;
 // $courses = $wpdb->get_results(
@@ -311,3 +402,104 @@ add_action('wp_ajax_nopriv_data_fetch', 'data_fetch');
 // 	")
 // );
 // dd($courses);
+function foy_register_session()
+{
+	if (!session_id()) {
+		session_start();
+	}
+	// destroying session after 30 minute
+	$currentTime = time();
+	if ($currentTime > $_SESSION['expire']) {
+		unset($_SESSION['coupon']);
+		unset($_SESSION['start']);
+		unset($_SESSION['expire']);
+	}
+}
+add_action('init', 'foy_register_session');
+
+//saving Ajax Data
+function foy_save_enquiry_form_action()
+{
+	unset($_SESSION['coupon']);
+	echo "ekfgb";
+	if (isset($_REQUEST['coupon'])) {
+		$coupon = $_REQUEST['coupon'];
+		$_SESSION['coupon'] = $coupon;
+		echo "Request: " . $_REQUEST['coupon'];
+		echo " Session: " . $_SESSION['coupon'];
+		// Destroying session after 30 minute
+		$_SESSION['start'] = time();
+		$_SESSION['expire'] = time() + (30 * 60);
+	}
+	die();
+}
+add_action('wp_ajax_save_post_details_form', 'foy_save_enquiry_form_action');
+add_action('wp_ajax_nopriv_save_post_details_form', 'foy_save_enquiry_form_action');
+
+// to automatically apply coupon cart page
+function foy_apply_coupon()
+{
+	if ($_SESSION['coupon']) {
+		$coupon_code = $_SESSION['coupon'];
+		if (WC()->cart->has_discount($coupon_code)) {
+			return;
+		}
+		WC()->cart->apply_coupon($coupon_code);
+	}
+}
+add_action('woocommerce_before_cart', 'foy_apply_coupon');
+// to automatically apply coupon to checkout page
+function foy_apply_coupon_checkout() {
+	if ($_SESSION['coupon']) {
+		$coupon_code = $_SESSION['coupon'];
+		if (WC()->cart->has_discount($coupon_code)) {
+			return;
+		}
+		WC()->cart->apply_coupon($coupon_code);
+	}
+}
+add_action('woocommerce_before_checkout_form', 'foy_apply_coupon_checkout');
+
+// unset session when coupon is removed
+function coupon_removed_action($coupon_code)
+{
+	unset($_SESSION['coupon']);
+	unset($_SESSION['start']);
+	unset($_SESSION['expire']);
+}
+add_filter("woocommerce_removed_coupon", 'coupon_removed_action');
+
+function foy_custom_footer_script() {
+	
+	if (isset($_GET['foy_auto_coupon'])) { 
+		?>
+		<script>
+			function foyFunction() {
+				console.log("kdafbg");
+				const coupon = "FOY100";
+				jQuery(document).ready(function(){
+					jQuery.ajax({
+						// url: ajaxurl,
+						url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
+						type: 'get',
+						data: {
+							'coupon': coupon,
+							'action': 'save_post_details_form' 
+						},
+						success: function(data) {
+							console.log("gagaet");
+							window.location.replace("http://localhost/MyProject/cart/?add-to-cart=79"); 
+						}
+					});
+				}); 
+			}
+			foyFunction();
+		</script>
+	<?php } 
+}
+add_action( 'wp_footer', 'foy_custom_footer_script' );
+
+function my_custom_cart_text() {
+	echo $_SESSION['coupon'];
+}
+add_action( 'woocommerce_cart_contents', 'my_custom_cart_text' );

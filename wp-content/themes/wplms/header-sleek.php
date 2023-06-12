@@ -81,7 +81,7 @@ wp_head();
                                 $style='default_login';
                             }
                         ?>
-                        <div id="vibe_bp_login" class="<?php echo vibe_sanitizer($style,'text'); ?>">
+                        <div id="vibe_bp_login" class="<?php echo vibe_sanitizer($style,'text'); ?> slksvjs">
                             <?php
                                 vibe_include_template("login/$style.php");
                             ?>

@@ -9,7 +9,11 @@ if ( is_user_logged_in() ) :
 			?>
 		</div>
 		<ul>
-			<li id="username"><a href="<?php bp_loggedin_user_link(); ?>"><?php bp_loggedin_user_fullname(); ?></a></li>
+			<li id="username">
+				<a href="<?php bp_loggedin_user_link(); ?>">
+					<?php bp_loggedin_user_fullname(); ?>
+				</a>
+			</li>
 			<?php do_action('wplms_header_top_login'); ?>
 			<?php if($show_view_profile){?>
 			<li><a href="<?php echo bp_loggedin_user_domain() . BP_XPROFILE_SLUG ?>/" title="<?php _e('View profile','vibe'); ?>"><?php _e('View profile','vibe'); ?></a></li>
