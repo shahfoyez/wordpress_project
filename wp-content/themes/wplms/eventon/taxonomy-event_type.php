@@ -53,7 +53,7 @@ do_action('eventon_before_main_content');
             <div class="col-md-12 col-sm-12">
                 <div class="content">
 					<div class="hentry">
-						<header class="entry-header ">
+						<header class="entry-header">
 							<h1 class="entry-title"><?php echo vibe_sanitizer($tax_name,'text').': '.single_cat_title( '', false ); ?></h1>
 
 							<?php if ( category_description() ) : // Show an optional category description ?>

@@ -292,9 +292,9 @@ class WPLMS_Actions{
 
     function nav_search(){
 
-    	$course_search = vibe_get_option('course_search');
+//    	$course_search = vibe_get_option('course_search');
 
-    	if($course_search ==2 || $course_search ==3){
+//    	if($course_search ==2 || $course_search ==3){
 
     		$args = apply_filters('wplms_course_nav_cats',array(
 		        'taxonomy'=>'course-cat',
@@ -326,9 +326,9 @@ class WPLMS_Actions{
     		if(vibe_get_customizer('header_style') == 'univ'){
     			echo '<style>.menu_nav_search{    grid-column-end: span 2;}</style>';
     		}
-    	}else{
-    		echo '<a id="new_searchicon"><i class="fa fa-search"></i></a>';
-    	}
+//    	}else{
+//    		echo '<a id="new_searchicon"><i class="fa fa-search"></i></a>';
+//    	}
     	
     }
 
@@ -1271,7 +1271,7 @@ class WPLMS_Actions{
 	// Course functions
 	function vibe_custom_print_button(){
 		$print_html='<a href="#" class="print_unit"><i class="icon-printer-1"></i></a>';
-		echo apply_filters('wplms_unit_print_button',$print_html);  
+		echo apply_filters('wplms_unit_print_button',$print_html);
 	}
 
 

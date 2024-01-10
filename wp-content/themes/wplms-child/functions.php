@@ -2,6 +2,7 @@
 	function wplms_child_enqueue_styles() {
 		wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' ); 
 		// wp_enqueue_style( "singleCourse-css", get_theme_file_uri("/assets/css/singleCourse.css" ), null, "1.5" );
+		wp_enqueue_style('all-course', get_theme_file_uri('/assets/css/all-course.css'), false, time(), 'all');
 	} 
 	add_action( 'wp_enqueue_scripts', 'wplms_child_enqueue_styles' );
 	add_action( 'wp_enqueue_scripts', 'add_ajax_url' );
@@ -14,33 +15,40 @@
 		
 
 
-	 
-		global $wpdb;
+
+
+		$args = array(
+			'post_type' => 'activity',
+			'post_status' => 'publish',
+			'posts_per_page' => 10,
+			'user_id' => 666, 
+			'per_page' => 10,
+		);
 		
-		// Query the database to retrieve user-wise course count
-		$query = "
-			SELECT COUNT(DISTINCT p.ID) AS course_count, u.ID AS user_id
-			FROM {$wpdb->prefix}posts AS p
-			INNER JOIN {$wpdb->prefix}postmeta AS pm ON p.ID = pm.post_id
-			INNER JOIN {$wpdb->prefix}users AS u ON pm.meta_value = u.ID
-			WHERE p.post_type = 'course'
-			AND p.post_status = 'publish'
-			GROUP BY u.ID
-		";
+		$activities = bp_activity_get($args);
+		// dd($activities);
 		
-		$results = $wpdb->get_results($query);
-		dd($results);
-		if (!empty($results)) {
-			foreach ($results as $result) {
-				$user_id = $result->user_id;
-				$course_count = $result->course_count;
+		if (!empty($activities['activities'])) {
+			foreach ($activities['activities'] as $activity) {
 		
-				// Output the user ID and course count
-				echo "User ID: $user_id | Course Count: $course_count <br>";
+				$activity_id = $activity->id;
+				$activity_content = $activity->content;
+				// Retrieve additional activity data as needed
+		
+				$word_count = str_word_count(strip_tags($activity_content));
+		
+				if ($word_count > 20) {
+					// Output or manipulate the data as desired
+					echo 'Activity ID: ' . $activity_id . '<br>';
+					echo 'Activity Content: ' . $activity_content . '<br>';
+				}
 			}
 		} else {
-			echo "No results found.";
+			// No activities found
+			echo 'No activities found.';
 		}
+		// Restore original query
+		wp_reset_query();
 
 	
 		
@@ -227,12 +235,10 @@ function certificate_data_fetch(){
 			ORDER BY meta.meta_value DESC
 		")
 	);
-
 	return $courses;
 }
 add_action('wp_ajax_certificate_data_fetch', 'certificate_data_fetch');
 add_action('wp_ajax_nopriv_certificate_data_fetch', 'certificate_data_fetch');
-
 
 function custom_api_init() {
 	// https://yourdomain.com/wp-json/custom/v1/data/
@@ -421,7 +427,6 @@ add_action('init', 'foy_register_session');
 function foy_save_enquiry_form_action()
 {
 	unset($_SESSION['coupon']);
-	echo "ekfgb";
 	if (isset($_REQUEST['coupon'])) {
 		$coupon = $_REQUEST['coupon'];
 		$_SESSION['coupon'] = $coupon;
@@ -432,6 +437,8 @@ function foy_save_enquiry_form_action()
 		$_SESSION['expire'] = time() + (30 * 60);
 	}
 	die();
+
+
 }
 add_action('wp_ajax_save_post_details_form', 'foy_save_enquiry_form_action');
 add_action('wp_ajax_nopriv_save_post_details_form', 'foy_save_enquiry_form_action');
@@ -503,3 +510,537 @@ function my_custom_cart_text() {
 	echo $_SESSION['coupon'];
 }
 add_action( 'woocommerce_cart_contents', 'my_custom_cart_text' );
+
+
+
+
+function session_ceck(){
+     if (!session_id()) {
+         session_start();
+     }
+}
+$referer = wp_get_referer();
+$page =  $_SERVER['REQUEST_URI'];
+// set session
+if ( strpos( $referer, 'blog' ) !== false ) {
+
+    session_ceck();
+    $_SESSION['from_blog'] = true;
+}
+
+if ( strpos( $referer, 'register' ) !== false ) {
+    // Set no-cache headers
+    header( 'Cache-Control: no-cache, no-store, must-revalidate' );
+    header( 'Pragma: no-cache' );
+    header( 'Expires: 0' );
+}
+
+//unset($_SESSION['from_blog']);
+function custom_login_redirect( $user_login, $user  ) {
+    session_ceck();
+    if ( $_SESSION['from_blog'] ) {
+        // To unset the session
+        session_ceck();
+        unset($_SESSION['from_blog']);
+        // Get the user data
+        $user = get_userdata( $user_login );
+        // Log the user in
+        wp_set_current_user( $user_login, $user->user_login );
+        wp_set_auth_cookie( $user_login );
+        do_action( 'wp_login', $user->user_login, $user );
+        // Insert the user meta with the key 'from_blog' and value 'id'
+        add_user_meta( $user_login, 'from_blog', true );
+
+        // redirect to the desire page
+        wp_redirect( home_url('/blog') );
+        exit;
+    }
+    wp_redirect( home_url('/about') );
+    exit;
+}
+add_action( 'user_register', 'custom_login_redirect', 10, 2 );
+
+
+if (!session_id()) {
+    session_start();
+}
+
+//global $wpdb;
+//$query = $wpdb->prepare(
+//    "SELECT user_id
+//    FROM {$wpdb->usermeta}
+//    WHERE meta_key = %s",
+//    'from_blog'
+//);
+//
+//$user_ids = $wpdb->get_col($query);
+//
+//if ($user_ids) {
+//    foreach ($user_ids as $user_id) {
+//        $user_data = get_userdata( $user_id );
+//        $user_name = $user_data->display_name;
+//        echo "Username: ".$user_name."<br>";
+//    }
+//} else {
+//    echo 'No user IDs found.';
+//}
+
+
+
+
+//// Get the current user's ID
+//$user_id = get_current_user_id();
+//
+//// Replace 'from_blog' with the actual user meta key
+//$meta_key = 'from_blog';
+//
+//// Get the user meta value
+//$meta_value = get_user_meta( $user_id, $meta_key, true );
+
+
+//function custom_login_redirect( $user_login, $user ) {
+//    $referer = wp_get_referer(); //$_SERVER['HTTP_REFERER']
+//    if ( strpos( $referer, '/all-courses' ) !== false ) {
+//        wp_redirect( home_url('/contact-us/') );
+//        exit;
+//    }
+//    wp_redirect( home_url() );
+//    exit;
+//}
+//add_action( 'wp_login', 'custom_login_redirect', 10, 2 );
+
+function custom_content_filter($content)
+{
+    $post_type = get_post_type();
+    if (is_singular('post') && $post_type == 'post') {
+        if (!is_user_logged_in()) {
+            global $post;
+            $excerpt_length = 10;
+            // Adjust the number of words in the excerpt as needed
+            $raw_content = $post->post_content;
+            $content_parts = get_extended($raw_content);
+            $content = $content_parts['main'];
+//            $excerpt_more = '... <a href="#login" rel="nofollow" class="vbplogin">read more</a>';
+            $excerpt_more = '... <a href="#login" rel="nofollow" class="vbplogin custom-read-more">read more</a>';
+            $words = preg_split("/[\n\r\t ]+/", $content, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
+            if (count($words) > $excerpt_length) {
+                array_pop($words);
+                $content = implode(' ', $words);
+                $content = $content . $excerpt_more;
+            } else {
+                $content = implode(' ', $words);
+            }
+            return $content;
+        }
+    }
+    return $content;
+}
+add_filter('the_content', 'custom_content_filter', 10);
+
+
+/**
+ * course directory course loop section modift by filter hook,
+ * because its not a template so not possible to override course loop section without filter hook,
+ * its wplms theme official instruction wplms theme support forum
+ */
+add_filter('bp_course_single_item_view', callback: function ($x) {
+	global $post;
+
+	$course_id = get_the_ID();
+	$product_id = get_post_meta($course_id, 'vibe_product', true);
+	$vibe_students = get_post_meta($course_id, 'vibe_students', true);
+	$average_rating = get_post_meta($course_id, 'average_rating', true);
+	$course_classes = apply_filters('bp_course_single_item', 'course_single_item course_id_' . $post->ID . ' course_status_' . $post->post_status . ' course_author_' . $post->post_author, get_the_ID());
+	$count = get_post_meta(get_the_ID(), 'rating_count', true);
+	$units=bp_course_get_curriculum_units($course_id);
+
+	$duration = $total_duration = 0;
+    if($units != ""){
+	    foreach($units as $unit){
+		    $duration = get_post_meta($unit,'vibe_duration',true);
+		    $total_duration =  $total_duration + $duration;
+	    }
+	    $hours = floor($total_duration / 60);
+	    $minutes = $total_duration % 60;
+	    if ($hours > 0) {
+		    $hours_text = $hours .'hr';
+	    }
+	    if ($minutes > 0) {
+		    $minutes_text = $minutes .'m';
+	    }
+    }
+	?>
+    <li class="<?php echo $course_classes; ?>">
+        <div class="a2n_course-card">
+            <div class="courses_container">
+                <div id="courses_content">
+                    <?php
+                        bp_course_avatar();
+                    ?>
+                    <div class="courses_items">
+                        <h4 class="courses_title">
+                            <a href="<?php echo get_the_permalink($course_id) ?>">
+			                    <?php echo get_the_title(); ?>
+                            </a>
+                        </h4>
+                        <div class="inner_items">
+                            <p>
+                                <img src="https://coursecloud.org/wp-content/uploads/2023/11/Frame-83.svg" alt="" />
+	                            <?php echo $vibe_students." Students"; ?>
+                            </p>
+                            <p>
+                                <img src="https://coursecloud.org/wp-content/uploads/2023/11/Group-42.svg" alt=""/>
+                                <?php echo $hours_text." ".$minutes_text?>
+                            </p>
+                        </div>
+	                    <?php if (!empty($average_rating)) { ?>
+                            <h5 class="courses_ratings">
+                                <span><i class="fa fa-star" aria-hidden="true"></i> <?php echo $average_rating; ?></span>
+                                <?php
+                                    if ($count > 999) {
+                                        echo "(".($count / 1000) . 'k'.")";
+                                    } else {
+                                        echo "(".$count.")";
+                                    }
+                                ?>
+                            </h5>
+                        <?php } ?>
+                        <div class="courses_end">
+                            <div class="price-div">
+		                        <?php
+		                        if (!bp_is_my_profile()) {
+			                        bp_course_credits();
+		                        } else {
+			                        the_course_button($course_id);
+		                        }
+		                        ?>
+                            </div>
+                            <div class="btn-div">
+		                        <?php
+		                        if (!bp_is_my_profile()) {
+			                        ?>
+<!--                                    <a href="--><?php //echo get_the_permalink($course_id) ?><!--" class="view-btn">-->
+<!--                                        View Course-->
+<!--                                    </a>-->
+                                    <a href="?add-to-cart=<?php echo $product_id; ?>" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart  add-to-cart-btn main_button" data-product_id="<?php echo $product_id; ?>" data-product_sku="" aria-label="Add" rel="nofollow">
+                                       Buy Now
+                                    </a>
+			                        <?php
+		                        }
+		                        ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="courses_bottom-shape"></div>
+            </div>
+        </div>
+    </li>
+	<?php
+	return 1;
+});
+
+
+function custom_course_card_shortcode($atts) {
+	global $post;
+	// Extract shortcode attributes
+	$atts = shortcode_atts(
+		array(
+			'course_id' => 0, // Default course ID
+		),
+		$atts,
+		'course_card'
+	);
+
+	// Get the course ID from the shortcode attributes
+	$course_id = intval($atts['course_id']);
+
+	// Check if the course ID is valid
+	if ($course_id <= 0) {
+		return 'Invalid course ID';
+	}
+
+	// Rest of your existing code
+	$product_id = get_post_meta($course_id, 'vibe_product', true);
+	$vibe_students = get_post_meta($course_id, 'vibe_students', true);
+	$average_rating = get_post_meta($course_id, 'average_rating', true);
+	$course_classes = apply_filters('bp_course_single_item', 'course_single_item course_id_' . $post->ID . ' course_status_' . $post->post_status . ' course_author_' . $post->post_author, $course_id);
+	$count = get_post_meta($course_id, 'rating_count', true);
+	$units = bp_course_get_curriculum_units($course_id);
+	$duration = $total_duration = 0;
+
+	foreach ($units as $unit) {
+		$duration = get_post_meta($unit, 'vibe_duration', true);
+		$total_duration = $total_duration + $duration;
+	}
+
+	$hours = floor($total_duration / 60);
+	$minutes = $total_duration % 60;
+	$hours_text = $minutes_text = '';
+
+	if ($hours > 0) {
+		$hours_text = $hours . 'hr';
+	}
+
+	if ($minutes > 0) {
+		$minutes_text = $minutes . 'm';
+	}
+
+	ob_start(); // Start output buffering
+	?>
+    <li class="<?php echo esc_attr($course_classes); ?>">
+        <div class="a2n_course-card">
+            <div class="courses_container">
+                <div id="courses_content">
+					<?php bp_course_avatar(); ?>
+                    <div class="courses_items">
+                        <h4 class="courses_title">
+                            <a href="<?php echo esc_url(get_the_permalink($course_id)); ?>">
+								<?php echo esc_html(get_the_title($course_id)); ?>
+                            </a>
+                        </h4>
+                        <div class="inner_items">
+                            <p>
+                                <img src="https://coursecloud.org/wp-content/uploads/2023/11/Frame-83.svg" alt=""/>
+								<?php echo esc_html($vibe_students) . " Students"; ?>
+                            </p>
+                            <p>
+                                <img src="https://coursecloud.org/wp-content/uploads/2023/11/Group-42.svg" alt=""/>
+								<?php echo esc_html($hours_text . " " . $minutes_text); ?>
+                            </p>
+                        </div>
+						<?php if (!empty($average_rating)) { ?>
+                            <h5 class="courses_ratings">
+                                <span><i class="fa fa-star" aria-hidden="true"></i> <?php echo esc_html($average_rating); ?></span>
+								<?php
+								if ($count > 999) {
+									echo "(".(esc_html($count) / 1000) . 'k'.")";
+								} else {
+									echo "(".esc_html($count).")";
+								}
+								?>
+                            </h5>
+						<?php } ?>
+                        <div class="courses_end">
+                            <div class="price-div">
+								<?php
+								if (!bp_is_my_profile()) {
+									bp_course_credits();
+								} else {
+									the_course_button($course_id);
+								}
+								?>
+                            </div>
+                            <div class="btn-div">
+								<?php
+								if (!bp_is_my_profile()) {
+									?>
+                                    <a href="?add-to-cart=<?php echo esc_attr($product_id); ?>"
+                                       data-quantity="1"
+                                       class="button product_type_simple add_to_cart_button ajax_add_to_cart  add-to-cart-btn main_button"
+                                       data-product_id="<?php echo esc_attr($product_id); ?>" data-product_sku=""
+                                       aria-label="Add" rel="nofollow">
+                                        Buy Now
+                                    </a>
+									<?php
+								}
+								?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="courses_bottom-shape"></div>
+            </div>
+        </div>
+    </li>
+	<?php
+	return ob_get_clean(); // Return the buffered content
+}
+
+// Register the shortcode
+add_shortcode('course_card', 'custom_course_card_shortcode');
+
+
+$user_id = get_current_user_id();
+$pageposts = $wpdb->get_results($wpdb->prepare("
+    SELECT posts.ID as id, IF(meta.meta_value > %d,'active','expired') as status, product_meta.meta_value as associated_product
+    FROM {$wpdb->posts} AS posts
+    LEFT JOIN {$wpdb->usermeta} AS meta ON posts.ID = meta.meta_key
+    LEFT JOIN {$wpdb->postmeta} AS product_meta ON posts.ID = product_meta.post_id AND product_meta.meta_key = 'vibe_product'
+    WHERE   posts.post_type   = %s
+    AND   posts.post_status   = %s
+    AND   meta.user_id   = %d
+", time(), 'course', 'publish', $user_id));
+//echo "<pre>";
+//var_dump($pageposts);
+//echo "</pre>";
+
+
+
+
+// added by shah fayez ali
+// Add A custom widget under widget section that fetch the categories
+class Custom_Course_Categories_Widget extends WP_Widget
+{
+	public function __construct()
+	{
+		parent::__construct(
+			'custom_course_categories_widget',
+			'Foy Custom Course Categories',
+			array('description' => 'Custom widget for displaying course categories')
+		);
+	}
+	public function widget($args, $instance)
+	{
+		$excluded_categories = !empty($instance['excluded_categories']) ? array_map('intval', explode(',', $instance['excluded_categories'])) : array();
+
+		$course_categories = get_terms(array(
+			'taxonomy' => 'course-cat',
+			'hide_empty' => true,
+			'exclude' => $excluded_categories,
+			'orderby' => 'count',
+			'order' => 'DESC',
+		));
+
+		echo $args['before_widget'];
+
+		// Widget title (if set)
+		$title = !empty($instance['title']) ? apply_filters('widget_title', $instance['title']) : '';
+		if ($title) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		}
+
+		// Display course categories
+		if (!empty($course_categories) && !is_wp_error($course_categories)) {
+			global $wp;
+			$current_url = home_url($wp->request);
+			$path = parse_url($current_url, PHP_URL_PATH);
+			$lastString = basename($path);
+			echo '<ul>';
+
+			echo '<li class="foy-cat-top">';
+			echo '<a class="foy-cat-title" href="">All Courses</a>';
+			echo '</li>';
+
+			echo '<li class="' . ($lastString == 'all-courses ' ? 'foy-current-cat foy-cat-li' : 'foy-cat-li') . '">';
+			echo '<input type="checkbox" class="foy-cat-checkbox" ' . ($lastString == 'all-courses' ? 'checked="checked"' : '') . '>';
+			echo '<a class="foy-cat-title" href="' . site_url('all-courses') . '">All Courses</a>';
+			echo '</li>';
+
+			foreach ($course_categories as $category) {
+				$cat_slug = $category->slug;
+				$course_count = $category->count;
+
+				echo '<li class="' . ($lastString == $cat_slug ? 'foy-current-cat foy-cat-li' : 'foy-cat-li') . '">';
+				echo '<input type="checkbox" class="foy-cat-checkbox" ' . ($lastString == $cat_slug ? 'checked="checked"' : '') . '>';
+				echo '<a class="foy-cat-title" href="' . get_term_link($category) . '">' . esc_html($category->name) . ' ('.$course_count.')</a>';
+				echo '</li>';
+			}
+			echo '</ul>';
+		} else {
+			echo '<p>No course categories found.</p>';
+		}
+
+		echo $args['after_widget'];
+	}
+
+	public function update($new_instance, $old_instance)
+	{
+		$instance = $old_instance;
+		$instance['excluded_categories'] = sanitize_text_field($new_instance['excluded_categories']);
+		$instance['title'] = sanitize_text_field($new_instance['title']); // Add title field if needed
+		return $instance;
+	}
+
+	public function form($instance)
+	{
+		$excluded_categories = !empty($instance['excluded_categories']) ? esc_attr($instance['excluded_categories']) : '';
+		$title = !empty($instance['title']) ? esc_attr($instance['title']) : ''; // Add title field if needed
+
+		// Add title field if needed
+		echo '<p>';
+		echo '<label for="' . $this->get_field_id('title') . '">Widget Title:</label>';
+		echo '<input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . $title . '" />';
+		echo '</p>';
+
+		echo '<p>';
+		echo '<label for="' . $this->get_field_id('excluded_categories') . '">Exclude Category IDs (comma-separated):</label>';
+		echo '<input class="widefat" id="' . $this->get_field_id('excluded_categories') . '" name="' . $this->get_field_name('excluded_categories') . '" type="text" value="' . $excluded_categories . '" />';
+		echo '</p>';
+	}
+}
+
+// Register the widget
+function register_custom_course_categories_widget()
+{
+	register_widget('Custom_Course_Categories_Widget');
+}
+add_action('widgets_init', 'register_custom_course_categories_widget');
+
+
+function custom_taxonomy_course_type() {
+	$labels = array(
+		'name'              => _x( 'Course Types', 'taxonomy general name', 'textdomain' ),
+		'singular_name'     => _x( 'Course Type', 'taxonomy singular name', 'textdomain' ),
+		'search_items'      => __( 'Search Course Types', 'textdomain' ),
+		'all_items'         => __( 'All Course Types', 'textdomain' ),
+		'parent_item'       => __( 'Parent Course Type', 'textdomain' ),
+		'parent_item_colon' => __( 'Parent Course Type:', 'textdomain' ),
+		'edit_item'         => __( 'Edit Course Type', 'textdomain' ),
+		'update_item'       => __( 'Update Course Type', 'textdomain' ),
+		'add_new_item'      => __( 'Add New Course Type', 'textdomain' ),
+		'new_item_name'     => __( 'New Course Type Name', 'textdomain' ),
+		'menu_name'         => __( 'Course Type', 'textdomain' ),
+	);
+
+	$args = array(
+		'hierarchical'      => true, // Set to true if you want it to behave like categories, false for tags
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'course-type' ),
+		'show_in_menu'      => true,
+	);
+
+	// Replace 'course' with the name of your custom post type
+	register_taxonomy( 'course-type', 'course', $args );
+}
+
+add_action( 'init', 'custom_taxonomy_course_type' );
+
+
+
+
+// Add this code to your theme's functions.php file or in a custom plugin
+
+function custom_taxonomy_course_language() {
+	$labels = array(
+		'name'              => _x( 'Course Languages', 'taxonomy general name', 'textdomain' ),
+		'singular_name'     => _x( 'Course Language', 'taxonomy singular name', 'textdomain' ),
+		'search_items'      => __( 'Search Course Languages', 'textdomain' ),
+		'all_items'         => __( 'All Course Languages', 'textdomain' ),
+		'parent_item'       => __( 'Parent Course Language', 'textdomain' ),
+		'parent_item_colon' => __( 'Parent Course Language:', 'textdomain' ),
+		'edit_item'         => __( 'Edit Course Language', 'textdomain' ),
+		'update_item'       => __( 'Update Course Language', 'textdomain' ),
+		'add_new_item'      => __( 'Add New Course Language', 'textdomain' ),
+		'new_item_name'     => __( 'New Course Language Name', 'textdomain' ),
+		'menu_name'         => __( 'Course Language', 'textdomain' ),
+	);
+
+	$args = array(
+		'hierarchical'      => true, // Set to true if you want it to behave like categories, false for tags
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'course-language' ),
+		'show_in_menu'      => true,
+	);
+
+	// Replace 'course' with the name of your custom post type
+	register_taxonomy( 'course-language', 'course', $args );
+}
+
+add_action( 'init', 'custom_taxonomy_course_language' );

@@ -26,11 +26,8 @@ isset($loop_number)?$loop_number:$loop_number=5;
 		<div class="pagination-links" id="blog-dir-pag-top">
 			<?php bp_blogs_pagination_links(); ?>
 		</div>
-
 	</div>
-
 	<?php do_action( 'bp_before_directory_blogs_list' ); ?>
-
 	<ul id="blogs-list" class="item-list" role="main">
 
 	<?php while ( bp_blogs() ) : bp_the_blog(); ?>
@@ -65,7 +62,6 @@ isset($loop_number)?$loop_number:$loop_number=5;
 	<?php endwhile; ?>
 
 	</ul>
-
 	<?php do_action( 'bp_after_directory_blogs_list' ); ?>
 
 	<?php bp_blog_hidden_fields(); ?>

@@ -3116,59 +3116,59 @@ class BP_Course_Ajax{
     // Notes & Discussion Unit comments :
 
     function wplms_add_unit_comment(){
-      $unit_id= $_POST['unit_id'];
-      $content = $_POST['text'];
-      if ( !isset($_POST['security']) || !wp_verify_nonce($_POST['security'],'security') || !is_numeric($unit_id)){
-         _e('Security check Failed. Contact Administrator.','vibe');
-         die();
-      }
-      if(strlen($content) < 2){
-        echo '<div class="message">'.__('Unable to add message','vibe').'</div>';
-        die();
-      }
-
-      $time = current_time('mysql');
-      $user_id = get_current_user_id();
-      $args = array(
-        'comment_post_ID' => $unit_id,
-        'user_id' => $user_id,
-        'comment_type' => 'public',
-        'comment_content' => $content,
-        'comment_date' => $time,
-        'comment_approved' => 1,
-        );
-      if(isset($_POST['parent']) && is_numeric($_POST['parent'])){
-        $args['comment_parent']=$_POST['parent'];
-      } 
-      $comment_id = wp_new_comment($args);
-      $args['comment_id']=$comment_id;
-      global $wpdb;
-      $approved_status = $wpdb->get_var("SELECT comment_approved FROM {$wpdb->comments} WHERE comment_ID = $comment_id");
-      if(is_numeric($comment_id)){
-
-          echo '<li class="public byuser zoom load" id="comment-'.$comment_id.'">
-                <div id="div-comment-'.$comment_id.'" class="unit-comment-body '.(empty($approved_status)?'unapproved':'approved').'">
-                  <div class="unit-comment-author vcard">
-                    '.bp_core_fetch_avatar( array(
-                    'item_id' => $user_id,
-                    'type' => 'thumb',
-                    )).'
-                  </div>
-                  <div class="unit-comment-text">  
-                    <cite class="fn">'.bp_core_get_userlink($user_id).'</cite>  
-                    <div class="comment-meta commentmetadata">
-                      <a href="'.get_permalink($unit_id).'">'.__('JUST NOW','vibe').'</a>'.(empty($approved_status)?' &nbsp; <a>( '._x('Sent for Approval.','when unit comment is not approved','vibe').' ) </a>':'').'  
-                    </div>
-                    <p>'.do_shortcode($content).'</p>
-                  </div>  
-                </div>
-              </li>';   
-          
-          do_action('wplms_course_unit_comment',$unit_id,$user_id,$comment_id,$args);     
-      }else{
-        echo '<div class="message">'.__('Unable to add message','vibe').'</div>';
-      }
-      die();
+//      $unit_id= $_POST['unit_id'];
+//      $content = $_POST['text'];
+//      if ( !isset($_POST['security']) || !wp_verify_nonce($_POST['security'],'security') || !is_numeric($unit_id)){
+//         _e('Security check Failed. Contact Administrator.','vibe');
+//         die();
+//      }
+//      if(strlen($content) < 2){
+//        echo '<div class="message">'.__('Unable to add message','vibe').'</div>';
+//        die();
+//      }
+//
+//      $time = current_time('mysql');
+//      $user_id = get_current_user_id();
+//      $args = array(
+//        'comment_post_ID' => $unit_id,
+//        'user_id' => $user_id,
+//        'comment_type' => 'public',
+//        'comment_content' => $content,
+//        'comment_date' => $time,
+//        'comment_approved' => 1,
+//        );
+//      if(isset($_POST['parent']) && is_numeric($_POST['parent'])){
+//        $args['comment_parent']=$_POST['parent'];
+//      } 
+//      $comment_id = wp_new_comment($args);
+//      $args['comment_id']=$comment_id;
+//      global $wpdb;
+//      $approved_status = $wpdb->get_var("SELECT comment_approved FROM {$wpdb->comments} WHERE comment_ID = $comment_id");
+//      if(is_numeric($comment_id)){
+//
+//          echo '<li class="public byuser zoom load" id="comment-'.$comment_id.'">
+//                <div id="div-comment-'.$comment_id.'" class="unit-comment-body '.(empty($approved_status)?'unapproved':'approved').'">
+//                  <div class="unit-comment-author vcard">
+//                    '.bp_core_fetch_avatar( array(
+//                    'item_id' => $user_id,
+//                    'type' => 'thumb',
+//                    )).'
+//                  </div>
+//                  <div class="unit-comment-text">  
+//                    <cite class="fn">'.bp_core_get_userlink($user_id).'</cite>  
+//                    <div class="comment-meta commentmetadata">
+//                      <a href="'.get_permalink($unit_id).'">'.__('JUST NOW','vibe').'</a>'.(empty($approved_status)?' &nbsp; <a>( '._x('Sent for Approval.','when unit comment is not approved','vibe').' ) </a>':'').'  
+//                    </div>
+//                    <p>'.do_shortcode($content).'</p>
+//                  </div>  
+//                </div>
+//              </li>';   
+//          
+//          do_action('wplms_course_unit_comment',$unit_id,$user_id,$comment_id,$args);     
+//      }else{
+//        echo '<div class="message">'.__('Unable to add message','vibe').'</div>';
+//      }
+//      die();
     }
 
     function wplms_load_unit_comments(){

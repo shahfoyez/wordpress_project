@@ -66,7 +66,7 @@ if(vibe_validate($title) || empty($title)){
 			<div class="sidebar">
                 <?php
                     $sidebar = apply_filters('wplms_sidebar','mainsidebar',$page_id);
-                    if ( !function_exists('dynamic_sidebar')|| !dynamic_sidebar($sidebar) ) : ?>
+                    if ( !function_exists('dynamic_sidebar')|| ! dynamic_sidebar($sidebar) ) : ?>
                 <?php endif; ?>
 			</div>
 		</div>

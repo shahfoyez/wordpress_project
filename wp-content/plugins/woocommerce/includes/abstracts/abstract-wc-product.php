@@ -1759,7 +1759,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		if ( '' === $this->get_price() ) {
 			$price = apply_filters( 'woocommerce_empty_price_html', '', $this );
 		} elseif ( $this->is_on_sale() ) {
-			$price = wc_format_sale_price( wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) ), wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
+			$price = wc_format_sale_price( wc_get_price_to_display( $this, array( 'price' => (float) $this->get_regular_price() ) ), wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
 		} else {
 			$price = wc_price( wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
 		}

@@ -781,7 +781,7 @@ class BP_Course_Action{
         ?>
         <div class="unit_wrap <?php echo $this->status_class; ?>">
             <div id="unit_content" class="unit_content <?php echo $react_quizzes;?>">
-            <h1>dhuihcuiwhcoih</h1>
+
             
             <div id="unit" class="<?php echo $post_type; ?>_title <?php echo ($post_type=='wplms-assignment'?'unit_title':''); ?>" data-unit="<?php if(isset($this->status_unit_id)) echo $this->status_unit_id; ?>">
                 <div class="unit_title_extras">
@@ -1093,55 +1093,6 @@ class BP_Course_Action{
         }
     }
 
-    function course_action_points(){
-
-        $user_id = get_current_user_id();
-        do_action('course_action_points',$this->status_course_id,$this->status_unit_id,$user_id);
-        ?>
-            <div class="course_action_points">
-                <h1><?php echo get_the_title($this->status_course_id); ?></h1>
-                <?php
-               
-                ?>
-                <div class="course_time">
-                    <?php
-                        the_course_time("course_id=$this->status_course_id&user_id=$user_id");
-                    ?>
-                </div>
-                <?php 
-
-                do_action('wplms_course_start_after_time',$this->status_course_id,$this->status_unit_id);  
-            ?>
-            </div>
-            <?php
-                echo the_course_timeline($this->status_course_id,$this->status_unit_id);
-                do_action('wplms_course_start_after_timeline',$this->status_course_id,$this->status_unit_id);
-
-                if(isset($this->status_course_curriculum) && is_array($this->status_course_curriculum)){
-                    ?>
-                    <div class="more_course">
-                        <a href="<?php echo get_permalink($this->status_course_id); ?>" class="unit_button full button"><?php _e('BACK TO COURSE','vibe'); ?></a>
-                        <form action="<?php echo get_permalink($this->status_course_id); ?>" method="post">
-                        <?php
-                        $finishbit=bp_course_get_user_course_status($user_id,$this->status_course_id);
-                        if(is_numeric($finishbit)){
-                            if($finishbit < 4){
-                                $comment_status = get_post_field('comment_status',$this->status_course_id);
-                                if($comment_status == 'open'){
-                                    echo '<input type="submit" name="review_course" class="review_course unit_button full button" value="'. __('REVIEW COURSE ','vibe').'" />';
-                                }
-                                echo '<input type="submit" name="submit_course" class="review_course unit_button full button" value="'. __('FINISH COURSE ','vibe').'" />';
-                            }
-                        }
-                        ?>  
-                        <?php wp_nonce_field($this->status_course_id,'review'); ?>
-                        </form>
-                    </div>
-                   <?php
-                }
-            ?>  
-        <?php
-    }
 
     /**
     * prevent_enter_on_directory hook.

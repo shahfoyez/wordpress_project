@@ -12,7 +12,6 @@
 // 3 : FINISH COURSE : COURSE UNDER EVALUATION
 // 4 : COURSE EVALUATED
 
-
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 do_action('wplms_before_start_course');

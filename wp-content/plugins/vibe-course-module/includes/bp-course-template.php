@@ -172,6 +172,7 @@ Class BP_Course_Template{
         			if(isset($check) && $check)
         				$link .= '?redirect';
         			$price_html = str_replace('class="amount"','class="amount"',$product->get_price_html());
+                    
 					$credits[$link] = '<strong>'.$price_html.'</strong>';
 				}
 			}
@@ -199,6 +200,7 @@ Class BP_Course_Template{
 		} // End Else
 
 		$credits = apply_filters('wplms_course_credits_array',$credits,$id);
+
 
 		if(count($credits) > 1 ){
 

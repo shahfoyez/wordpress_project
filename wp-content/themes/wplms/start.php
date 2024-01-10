@@ -21,7 +21,7 @@ $course_status_template = apply_filters('wplms_course_status_template',vibe_get_
 
 if(empty($course_status_template)){$course_status_template = 'default';}
 
-vibe_include_template("course/start/$course_status_template.php");  
+vibe_include_template("course/start/$course_status_template.php");
 
 
 

@@ -1,0 +1,347 @@
+2024-01-04T08:24:55+00:00 CRITICAL Uncaught Error: Using $this when not in object context in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php:4
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php on line 4
+
+2024-01-04T08:25:30+00:00 CRITICAL Uncaught Error: Using $this when not in object context in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php:5
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php on line 5
+
+2024-01-04T08:25:34+00:00 CRITICAL Uncaught Error: Using $this when not in object context in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php:5
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php on line 5
+
+2024-01-04T08:55:22+00:00 CRITICAL Uncaught Exception: FPDF error: Unable to create output file: C:\xampp\htdocs\MyProject/wp-content/uploads/sa-certificate-pdf/certificate_1_76_6596727a19c88.pdf in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1022): FPDF->Error('Unable to creat...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): FPDF->Output('F', 'C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(65): CertificateController->UpdateMeta(Object(FPDF), 76)
+#3 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(15): CertificateController->GeneratePdf(76)
+#4 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T08:58:23+00:00 CRITICAL Uncaught Error: Using $this when not in object context in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php:49
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php on line 49
+
+2024-01-04T08:59:33+00:00 CRITICAL Uncaught Error: Using $this when not in object context in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php:49
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php on line 49
+
+2024-01-04T09:00:09+00:00 CRITICAL Uncaught Error: Using $this when not in object context in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php:51
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php on line 51
+
+2024-01-04T09:01:02+00:00 CRITICAL Uncaught Error: Using $this when not in object context in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php:51
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php on line 51
+
+2024-01-04T09:01:36+00:00 CRITICAL Uncaught Error: Using $this when not in object context in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php:51
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php on line 51
+
+2024-01-04T09:02:18+00:00 CRITICAL Uncaught Exception: FPDF error: Some data has already been output, can't send PDF file in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1060): FPDF->Error('Some data has a...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(999): FPDF->_checkoutput()
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(73): FPDF->Output()
+#3 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T09:03:34+00:00 CRITICAL Uncaught Exception: FPDF error: Some data has already been output, can't send PDF file in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1060): FPDF->Error('Some data has a...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(999): FPDF->_checkoutput()
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(72): FPDF->Output()
+#3 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T09:04:12+00:00 CRITICAL Uncaught Exception: FPDF error: Unable to create output file: C:\xampp\htdocs\MyProject/wp-content/uploads/sa-certificate-pdf/certificate_1_76_6596748cb8b99.pdf in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1022): FPDF->Error('Unable to creat...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): FPDF->Output('F', 'C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(65): CertificateController->UpdateMeta(Object(FPDF), 76)
+#3 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf(76)
+#4 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T09:04:41+00:00 CRITICAL Uncaught Exception: FPDF error: Unable to create output file: C:\xampp\htdocs\MyProject/wp-content/uploads/sa-certificate-pdf/certificate_1_76_659674a9a6e1e.pdf in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1022): FPDF->Error('Unable to creat...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): FPDF->Output('F', 'C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(65): CertificateController->UpdateMeta(Object(FPDF), 76)
+#3 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf(76)
+#4 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T09:04:49+00:00 CRITICAL Uncaught Exception: FPDF error: Unable to create output file: C:\xampp\htdocs\MyProject/wp-content/uploads/sa-certificate-pdf/certificate_1_76_659674b1d51ac.pdf in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1022): FPDF->Error('Unable to creat...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): FPDF->Output('F', 'C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(65): CertificateController->UpdateMeta(Object(FPDF), 76)
+#3 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf(76)
+#4 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T09:04:59+00:00 CRITICAL Uncaught Exception: FPDF error: Unable to create output file: C:\xampp\htdocs\MyProject/wp-content/uploads/sa-certificate-pdf/certificate_1_76_659674bb8b807.pdf in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1022): FPDF->Error('Unable to creat...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): FPDF->Output('F', 'C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(65): CertificateController->UpdateMeta(Object(FPDF), 76)
+#3 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf(76)
+#4 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T09:05:34+00:00 CRITICAL Uncaught Error: Call to undefined method CertificateController::UpdateMeta() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:65
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf(76)
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 65
+
+2024-01-04T09:08:02+00:00 CRITICAL Uncaught Exception: FPDF error: Unable to create output file: C:\xampp\htdocs\MyProject/wp-content/uploads/sa-certificate-pdf/certificate_1_76_659675726e4d6.pdf in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1022): FPDF->Error('Unable to creat...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): FPDF->Output('F', 'C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(65): CertificateController->UpdateMeta(Object(FPDF), 76)
+#3 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf(76)
+#4 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T09:10:43+00:00 CRITICAL Uncaught Exception: FPDF error: Unable to create output file: C:\xampp\htdocs\MyProject/wp-content/uploads/sa-certificate-pdf/certificate_1_76_659676130b5a6.pdf in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php:271
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php(1022): FPDF->Error('Unable to creat...')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): FPDF->Output('F', 'C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(65): CertificateController->UpdateMeta(Object(FPDF), '76')
+#3 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf('76')
+#4 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\vendor\setasign\fpdf\fpdf.php on line 271
+
+2024-01-04T09:44:23+00:00 CRITICAL Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, string given in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:93
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): in_array('78', '')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(18): CertificateController->UpdateMeta()
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf('78')
+#3 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 93
+
+2024-01-04T09:44:26+00:00 CRITICAL Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, string given in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:93
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(93): in_array('78', '')
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(18): CertificateController->UpdateMeta()
+#2 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf('78')
+#3 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 93
+
+2024-01-04T09:46:19+00:00 CRITICAL Uncaught Error: [] operator not supported for strings in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:99
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(18): CertificateController->UpdateMeta()
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf('78')
+#2 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 99
+
+2024-01-04T09:46:22+00:00 CRITICAL Uncaught Error: [] operator not supported for strings in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:99
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(18): CertificateController->UpdateMeta()
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->GeneratePdf('78')
+#2 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 99
+
+2024-01-04T10:06:36+00:00 CRITICAL syntax error, unexpected token "\", expecting end of file in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\order-error.php on line 2
+
+2024-01-04T10:07:02+00:00 CRITICAL syntax error, unexpected token "\", expecting end of file in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\order-error.php on line 2
+
+2024-01-04T10:25:17+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:26:27+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:26:56+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:27:02+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:27:11+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:27:15+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:27:18+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:27:49+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:28:10+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:24
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 24
+
+2024-01-04T10:29:39+00:00 CRITICAL Uncaught Error: Call to undefined function redirect_to_order_error() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:25
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('77')
+#1 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#4 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 25
+
+2024-01-04T10:45:46+00:00 CRITICAL Uncaught Error: Call to undefined function vibe_get_course_completed_status() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:35
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(18): CertificateController->ValidateCourse()
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('7555555559')
+#2 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 35
+
+2024-01-04T10:46:19+00:00 CRITICAL Uncaught Error: Call to undefined function bp_course_has_completed() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:35
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(18): CertificateController->ValidateCourse()
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('7555555559')
+#2 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 35
+
+2024-01-04T11:47:32+00:00 CRITICAL Uncaught Error: Call to undefined method FPDF::SetFontfffff() in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php:108
+Stack trace:
+#0 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php(24): CertificateController->GeneratePdf()
+#1 C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\pdf-generator.php(16): CertificateController->UpdateUserCertificate('45')
+#2 C:\xampp\htdocs\MyProject\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\MyProject\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\MyProject\index.php(17): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 108
+
+2024-01-04T12:01:22+00:00 CRITICAL syntax error, unexpected token ";", expecting ")" in C:\xampp\htdocs\MyProject\wp-content\themes\wplms-child\classes\CertificateController.php on line 107
+

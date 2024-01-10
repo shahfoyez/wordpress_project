@@ -497,9 +497,7 @@ function bp_directory_course_search_form() {
 		<label><input type="text" name="s" id="course_search" placeholder="'. esc_attr( $search_value ) .'" /></label>
 		<input type="submit" id="course_search_submit" name="course_search_submit" value="'. __( 'Search', 'vibe' ) .'" />
 	</form>';
-
 	echo apply_filters( 'bp_directory_course_search_form', $search_form_html );
-
 }
 
 if(!function_exists('the_course_button')){
@@ -1915,7 +1913,7 @@ function bp_course_add_user_to_course($user_id,$course_id,$duration = NULL,$forc
     if($time<time())
       $time=time();
 
-    if(empty($total_duration)){
+    if(empty($total_durationduration)){
       $total_duration=0;
     }
 

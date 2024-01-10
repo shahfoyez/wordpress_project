@@ -1,0 +1,13 @@
+{
+  "name": "vendor/wplms-child",
+  "description": "Child theme",
+  "type": "wordpress-theme",
+  "require": {
+    "setasign/fpdf": "^1.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "vendor\\wplms-child\\": "src/"
+    }
+  }
+}
