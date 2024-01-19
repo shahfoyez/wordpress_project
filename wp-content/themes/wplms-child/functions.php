@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+require_once WP_PLUGIN_DIR . '/ct-automation/classes/CTAjaxController.php';
+
 	function wplms_child_enqueue_styles() {
 		wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' ); 
 		// wp_enqueue_style( "singleCourse-css", get_theme_file_uri("/assets/css/singleCourse.css" ), null, "1.5" );
@@ -10,13 +13,12 @@
 	function add_ajax_url() {
 		wp_localize_script( 'jquery', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 	}
-	
+
+
+
+
+
 	function timer_function( $atts ){
-		
-
-
-
-
 		$args = array(
 			'post_type' => 'activity',
 			'post_status' => 'publish',
