@@ -1,5 +1,5 @@
 {
-  "name": "vendor/wplms-child",
+  "name": "vendor_b/wplms-child",
   "description": "Child theme",
   "type": "wordpress-theme",
   "require": {

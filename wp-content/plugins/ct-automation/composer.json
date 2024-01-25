@@ -1,0 +1,18 @@
+{
+  "name": "vendor_old/ct-automation",
+  "description": "Effortlessly automate certificate and transcript assignments with the 'CT Automation' plugin.",
+  "require": {
+    "setasign/fpdf": "^1.8"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
+  "config": {
+    "vendor-dir": "vendor_old"
+  },
+  "authors": [
+    {
+      "name": "Shah Fayez Ali"
+    }
+  ]
+}

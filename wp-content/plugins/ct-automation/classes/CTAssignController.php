@@ -1,5 +1,5 @@
 <?php
-class CTController{
+class CTAssignController{
 	private $user_id;
 	private $user_name;
 	private $user_email;
@@ -22,18 +22,28 @@ class CTController{
 	private $certificate_status = false;
 	private $transcript_status = false;
 	public function __construct(){
-		require_once get_stylesheet_directory() . '/includes/library/vendor/autoload.php';
-		$this->user_id = get_current_user_id();
-		$user_data = get_userdata($this->user_id);
-		$this->user_name = $user_data->display_name;
-		$this->user_email = $user_data->user_email;
+		require_once plugin_dir_path( __DIR__ ). 'vendor/autoload.php';
 		$this->table_name = 'wp_sa_certificate_automation';
-		$this->common_path = get_stylesheet_directory_uri().'/assets/images/certificate-transcript';
+		$this->common_path = plugin_dir_url( __DIR__ ).'assets/images';
 	}
-	public function UpdateUserCT($course_id, $certificate_clicked, $transcript_clicked): array {
+	public function AssignCT(): array {
+		if (empty($_POST['course_id']) || empty($_POST['user_id']) || empty($_POST['pdf_type'])) {
+			$this->error_messages[] = 'Invalid input parameters';
+			return [
+				'success' => false,
+				'messages' => $this->error_messages
+			];
+		}
+		$course_id = $_POST['course_id'];
+		$user_id = (int) $_POST['user_id'];
+		$pdf_type = sanitize_text_field($_POST['pdf_type']);
+
 		$this->course_id = $course_id;
-		$this->certificate_clicked = $certificate_clicked;
-		$this->transcript_clicked = $transcript_clicked;
+		$this->user_id = $user_id;
+
+		$this->certificate_clicked = $pdf_type === 'certificate' || $pdf_type === 'both';
+		$this->transcript_clicked = $pdf_type === 'transcript' || $pdf_type === 'both';
+
 		global $wpdb;
 		$wpdb->query('START TRANSACTION');
 		try {
@@ -41,73 +51,73 @@ class CTController{
 				$mail_status = $this->SendAdminNotification();
 				return [
 					'success' => false,
-					'errors' => $this->error_messages,
+					'messages' => $this->error_messages,
 					'mail_status' => $mail_status
 				];
 			}
+
+            //	Logical Operators: Short-Circuit
 			$certOperationsSuccess = $this->certificate_clicked && $this->UpdateCertificateMeta() && $this->GenerateCertificatePdf() && $this->AddCertificateAutomation();
 			$tranOperationsSuccess = $this->transcript_clicked && $this->CheckTranscriptMeta() && $this->GenerateTranscriptPdf() && $this->AddTranscriptAutomation();
-
-			if($certificate_clicked && !$transcript_clicked){
+			// to store pdf:start
+			if($this->certificate_clicked ){
 				if($certOperationsSuccess){
 					$this->certificate_status = true;
 					$this->pdf->Output('F', $this->filepath);
 				}else{
 					$this->certificate_status = false;
-					return $this->buildResponse(false,false);
+					return $this->buildResponse(false);
 				}
-			}elseif($transcript_clicked && !$certificate_clicked){
+			}if($this->transcript_clicked){
 				if($tranOperationsSuccess){
 					$this->transcript_status = true;
 					$this->transcript_pdf->Output('F', $this->transcript_filepath);
 				}else{
 					$this->transcript_status = false;
-					return $this->buildResponse(false,'', false);
-				}
-			}elseif($certificate_clicked && $transcript_clicked){
-				if($certOperationsSuccess && $tranOperationsSuccess){
-					$this->pdf->Output('F', $this->filepath);
-					$this->transcript_pdf->Output('F', $this->transcript_filepath);
-					$this->certificate_status = true;
-					$this->transcript_status = true;
-				}else{
-					$this->certificate_status = false;
-					$this->transcript_status = false;
-					return $this->buildResponse(false,false, false);
+					return $this->buildResponse(false);
 				}
 			}
+			// to store pdf:end
+
+			// commit, notification & return:start
 			$wpdb->query('COMMIT');
 			$mail_status = $this->SendUserNotification();
-
+			$this->error_messages[] = 'Successful!';
+			if(!$mail_status){
+				$this->error_messages[] = 'Failed to send email!';
+			}else{
+				$this->error_messages[] = 'Mail Send successfully.';
+			}
 			return [
 				'success' => true,
-				'mail_status' => $mail_status,
+				'messages' => $this->error_messages,
 				'certificate' => $this->certificate_status,
 				'transcript' =>  $this->transcript_status,
 			];
-//			return $this->buildResponse(true, $this->certificate_status, $this->transcript_status);
-//			}
-//			// send notification to admin if an error is occurred
-//			$this->SendAdminNotification();
-//			return [
-//				'success' => false,
-//				'errors' => $this->error_messages
-//			];
+			// commit, notification & return:end
+
 		} catch (Exception $e) {
 			$wpdb->query('ROLLBACK');
 			return [
 				'success' => false,
-				'errors' => $this->error_messages
+				'messages' => $this->error_messages
 			];
 		}
 	}
 	public function ValidateCourse(): bool {
-		if(empty($this->certificate_clicked) && empty($this->transcript_clicked)){
-			$this->error_messages[] = "Certificate or Transcript not selected";
+		$user_data = get_userdata($this->user_id);
+		if(!$user_data){
+			$this->error_messages[] = "User Not Found!";
 			return false;
 		}
+		$this->user_name = $user_data->display_name;
+		$this->user_email = $user_data->user_email;
+//		if(empty($this->certificate_clicked) && empty($this->transcript_clicked)){
+//			$this->error_messages[] = "Please select pdf type";
+//			return false;
+//		}
 		if(empty($this->course_id)){
-			$this->error_messages[] = "Please Select a Course";
+			$this->error_messages[] = "Course ID missing";
 			return false;
 		}
 		$course = get_post($this->course_id);
@@ -146,7 +156,7 @@ class CTController{
 			}
 			return true;
 		}
-		$this->error_messages[] = "You have already purchased the certificate!";
+		$this->error_messages[] = "User have already purchased the certificate!";
 		return false;
 	}
 	public function CheckTranscriptMeta(): bool {
@@ -161,7 +171,7 @@ class CTController{
 		);
 		$results = $wpdb->get_results($query, ARRAY_A);
 		if(count($results)){
-			$this->error_messages[] = "You have already purchased the transcript!";
+			$this->error_messages[] = "User have already have the transcript!";
 			return false;
 		}
 		return true;
@@ -171,7 +181,8 @@ class CTController{
 		$this->pdf = $_pdf;
 		$completion_date = $this->GetCourseCompletionDate();
 		// Get image dimensions
-		list($originalWidth, $originalHeight) = getimagesize('https://adamsfcstg.wpenginepowered.com/wp-content/uploads/2024/01/c1.jpg');
+//		list($originalWidth, $originalHeight) = getimagesize('https://adamsfcstg.wpenginepowered.com/wp-content/uploads/2024/01/c1.jpg');
+		list($originalWidth, $originalHeight) = getimagesize($this->common_path.'/c1.jpg');
 
 		// Calculate scaling factor based on page width and image aspect ratio
 		$pageWidth = $_pdf->GetPageWidth();
@@ -187,7 +198,7 @@ class CTController{
 
 		// Add the image to the PDF
 		$_pdf->AddPage();
-		$_pdf->Image( 'https://adamsfcstg.wpenginepowered.com/wp-content/uploads/2024/01/c1.jpg', $xPosition, $yPosition, $newWidth, $newHeight);
+		$_pdf->Image( $this->common_path.'/c1.jpg', $xPosition, $yPosition, $newWidth, $newHeight);
 
 		$textWidth = 145;
 		$centeredX = $xPosition + ($pageWidth - $textWidth) / 2;
@@ -297,19 +308,17 @@ class CTController{
 			$isLast = ($chunk_key == $chunks_length - 1);
 			if($chunks_length == 1){
 				$default_column_height = 6;
-//				$this->common_path.'/t4.jpg';
-				$image_url = 'https://adamsfcstg.wpenginepowered.com/wp-content/uploads/2024/01/t4.jpg';
+				$image_url = $this->common_path.'/t4.jpg';
 			} else if($start == 1){
 				$default_column_height = 8;
-				$image_url = 'https://adamsfcstg.wpenginepowered.com/wp-content/uploads/2024/01/t1.jpg';
+				$image_url = $this->common_path.'/t1.jpg';
 			} else if ($chunk_key == $isLast) {
 				$default_column_height = 6;
-				$image_url = 'https://adamsfcstg.wpenginepowered.com/wp-content/uploads/2024/01/t3.jpg';
+				$image_url = $this->common_path.'/t3.jpg';
 			}else{
-				$image_url = 'https://adamsfcstg.wpenginepowered.com/wp-content/uploads/2024/01/t2.jpg';
+				$image_url = $this->common_path.'/t2.jpg';
 				$default_column_height = 8;
 			}
-//			$image_url = 'https://adamsfcstg.wpenginepowered.com/wp-content/uploads/2024/01/t1.jpg';
 			// Get image dimensions
 			list($originalWidth, $originalHeight) = getimagesize($image_url);
 
@@ -364,6 +373,7 @@ class CTController{
 			foreach($chunk as $key => $value) {
 				$transcript_pdf->SetX($tableX);
 				$module_length = strlen($value);
+				// $value = iconv('UTF-8', 'windows-1252', html_entity_decode($value));
 
 				$second_column = $module_length > 71 ? 5 : $default_column_height;
 				$firstColumn = $second_column < 6 ? 10 : $default_column_height;
@@ -433,10 +443,10 @@ class CTController{
 //		$admin_email = get_option('admin_email');
 		$admin_email   = 'shahfayez@staffasia.org';
 		$admin_subject = 'Error in Certificate Generation';
-		$admin_message = 'User: ' . $this->user_name . ',<br><br>';
-		$admin_message .= 'Course: ' . $this->course_id . ',<br><br>';
-		$admin_message .= 'Error messages:<br>';
-		$admin_message .= implode( '<br>', $this->error_messages );
+//		$admin_message = 'User: ' . $this->user_id . ',<br><br>';
+//		$admin_message .= 'Course: ' . $this->course_id . ',<br><br>';
+//		$admin_message .= 'Error messages:<br>';
+		$admin_message = implode( '<br>', $this->error_messages );
 
 		return wp_mail( $admin_email, $admin_subject, $admin_message, $headers );
 	}
